@@ -297,7 +297,7 @@ function AuthScreen() {
     setGoogleLoading(true);
     const { error } = await sb.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: window.location.origin }
+      options: { redirectTo: 'https://lullaby.skofi.tech' }
     });
     if(error){ setMsg({text:error.message,type:'error'}); setGoogleLoading(false); }
     // On success, Supabase redirects to Google, then back — no need to setLoading(false)
