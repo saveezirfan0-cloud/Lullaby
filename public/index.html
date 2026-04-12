@@ -14,40 +14,75 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;background:#FBF8F5;min-height:100vh;color:#2C1A0E;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+body{font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;-webkit-tap-highlight-color:transparent;transition:background .3s,color .3s}
+
+/* ── LIGHT MODE (default) ── */
 :root{
-  --rose:#F2D4CC;--rose-deep:#C4705A;--rose-text:#7A3020;
-  --sky:#C8DCF0;--sky-deep:#4A80B8;--sky-text:#1A3D6B;
-  --mint:#C8EAD8;--mint-deep:#3A9060;--mint-text:#1A5030;
-  --lav:#DDD4F0;--lav-deep:#7060B8;--lav-text:#3A2878;
-  --sun:#F5E4BC;--sun-deep:#C08030;--sun-text:#6A4010;
-  --cream:#FBF8F5;--sand:#F2EDE8;--stone:#E4DCD4;
-  --ink:#2C1A0E;--muted:#8C7060;--subtle:#B0A090;
+  --bg:#FBF8F5;--bg2:#F2EDE8;--bg3:#E8E2DC;
   --card:#FFFFFF;--border:#E4DCD4;
+  --ink:#2C1A0E;--muted:#8C7060;--subtle:#B0A090;
   --shadow:0 2px 12px rgba(44,26,14,0.06);
   --shadow-lg:0 8px 32px rgba(44,26,14,0.12);
   --danger:#E85A4F;--danger-bg:#FDECEA;
+  /* accent — overridden by theme */
+  --accent:#C4705A;--accent-bg:#F2D4CC;--accent-text:#7A3020;
+  --accent2:#3A9060;--accent2-bg:#C8EAD8;--accent2-text:#1A5030;
+  --lav:#DDD4F0;--lav-deep:#7060B8;--lav-text:#3A2878;
+}
+/* ── DARK MODE ── */
+body.dark{
+  --bg:#1A1210;--bg2:#231815;--bg3:#2E201C;
+  --card:#2A1E1A;--border:#3D2D28;
+  --ink:#F5EDE8;--muted:#9A8070;--subtle:#6A5548;
+  --shadow:0 2px 12px rgba(0,0,0,0.3);
+  --shadow-lg:0 8px 32px rgba(0,0,0,0.4);
+}
+/* ── GIRL THEME (rose/pink) ── */
+body.theme-girl{
+  --accent:#C4705A;--accent-bg:#F2D4CC;--accent-text:#7A3020;
+  --accent2:#B85080;--accent2-bg:#F0C8D8;--accent2-text:#6A1840;
+}
+body.dark.theme-girl{
+  --accent:#E89080;--accent-bg:#4A2820;--accent-text:#F5C0B0;
+  --accent2:#D070A0;--accent2-bg:#3A1828;--accent2-text:#F0B0D0;
+}
+/* ── BOY THEME (blue) ── */
+body.theme-boy{
+  --accent:#4A80B8;--accent-bg:#C8DCF0;--accent-text:#1A3D6B;
+  --accent2:#3A9060;--accent2-bg:#C8EAD8;--accent2-text:#1A5030;
+  --lav:#C8DCF0;--lav-deep:#4A80B8;--lav-text:#1A3D6B;
+}
+body.dark.theme-boy{
+  --accent:#6AA0D8;--accent-bg:#1A3050;--accent-text:#B0D0F0;
+  --accent2:#50A878;--accent2-bg:#1A3828;--accent2-text:#A0D8B8;
+  --lav:#1A3050;--lav-deep:#6AA0D8;--lav-text:#B0D0F0;
 }
 
-/* ── Layout ── */
-.app{max-width:440px;margin:0 auto;min-height:100vh;position:relative;background:#FBF8F5}
-.header{padding:20px 20px 12px;position:sticky;top:0;z-index:40;background:#FBF8F5}
+body{background:var(--bg);color:var(--ink)}
+.app{max-width:440px;margin:0 auto;min-height:100vh;position:relative;background:var(--bg)}
+
+/* ── Header ── */
+.header{padding:20px 20px 12px;position:sticky;top:0;z-index:40;background:var(--bg)}
 .header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
-.logo{font-family:'DM Serif Display',serif;font-size:22px;color:#2C1A0E}
-.logo span{color:#C4705A;font-style:italic}
+.logo{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink)}
+.logo span{color:var(--accent);font-style:italic}
 .profile-row{display:flex;gap:8px;align-items:center}
 .profile-chip{display:flex;align-items:center;gap:6px;padding:6px 12px 6px 6px;background:var(--card);border:1px solid var(--border);border-radius:100px;cursor:pointer;transition:all .15s}
-.profile-chip:hover{border-color:var(--rose-deep)}
-.profile-avatar{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;overflow:hidden;flex-shrink:0}
+.profile-chip:hover{border-color:var(--accent)}
+.profile-chip.active-chip{border-color:var(--accent)}
+.profile-avatar{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;overflow:hidden;flex-shrink:0;background:var(--accent-bg);color:var(--accent-text)}
 .profile-avatar img{width:100%;height:100%;object-fit:cover}
 .profile-name{font-size:13px;font-weight:500;color:var(--ink)}
 .add-profile-btn{width:32px;height:32px;border-radius:50%;border:1.5px dashed var(--subtle);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--subtle);font-size:18px;transition:all .15s}
-.add-profile-btn:hover{border-color:var(--rose-deep);color:var(--rose-deep)}
+.add-profile-btn:hover{border-color:var(--accent);color:var(--accent)}
+.user-avatar-btn{width:32px;height:32px;border-radius:50%;overflow:hidden;cursor:pointer;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;background:var(--bg2);font-size:13px;font-weight:600;color:var(--muted);flex-shrink:0;transition:border-color .15s}
+.user-avatar-btn:hover{border-color:var(--accent)}
+.user-avatar-btn img{width:100%;height:100%;object-fit:cover}
 
 /* ── Tabs ── */
 .tabs{display:flex;padding:0 20px;gap:4px;margin-bottom:8px}
 .tab{flex:1;padding:8px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--muted);border-radius:10px;cursor:pointer;transition:all .15s}
-.tab.active{background:var(--ink);color:white}
+.tab.active{background:var(--ink);color:var(--bg)}
 
 /* ── Insights ── */
 .insights-strip{padding:0 20px 16px;overflow-x:auto;display:flex;gap:10px;scrollbar-width:none}
@@ -56,40 +91,41 @@ body{font-family:'DM Sans',sans-serif;background:#FBF8F5;min-height:100vh;color:
 .insight-label{font-size:11px;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px}
 .insight-value{font-size:18px;font-weight:600;color:var(--ink)}
 .insight-sub{font-size:11px;color:var(--muted);margin-top:2px}
-.insight-card.alert .insight-value{color:var(--rose-deep)}
-.insight-card.ok .insight-value{color:var(--mint-deep)}
+.insight-card.alert .insight-value{color:var(--danger)}
+.insight-card.ok .insight-value{color:var(--accent2)}
 
 /* ── Active banner ── */
 .active-banner{margin:0 20px 16px;padding:14px 16px;border-radius:16px;display:flex;align-items:center;justify-content:space-between;animation:pulse 2s infinite}
 .active-banner.sleep{background:var(--lav);border:1px solid var(--lav-deep)}
-.active-banner.feed{background:var(--rose);border:1px solid var(--rose-deep)}
+.active-banner.feed{background:var(--accent-bg);border:1px solid var(--accent)}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.85}}
 .active-info{display:flex;flex-direction:column;gap:2px}
 .active-title{font-size:13px;font-weight:600;color:var(--lav-text)}
 .active-timer{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--lav-text)}
-.active-banner.feed .active-title,.active-banner.feed .active-timer{color:var(--rose-text)}
+.active-banner.feed .active-title,.active-banner.feed .active-timer{color:var(--accent-text)}
 .stop-btn{padding:8px 16px;border-radius:100px;border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer}
-.active-banner.sleep .stop-btn{background:var(--lav-deep);color:white}
-.active-banner.feed .stop-btn{background:var(--rose-deep);color:white}
+.active-banner.sleep .stop-btn{background:var(--lav-deep);color:#fff}
+.active-banner.feed .stop-btn{background:var(--accent);color:#fff}
 
 /* ── Timeline ── */
 .timeline{padding:0 20px;padding-bottom:120px}
 .day-label{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin:16px 0 10px;padding-left:4px}
 .entry{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px}
-.entry-icon-wrap{width:40px;height:40px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;margin-top:2px;cursor:pointer;transition:opacity .15s}
-.entry-icon-wrap:hover{opacity:.8}
-.entry-card{flex:1;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 14px;box-shadow:var(--shadow);cursor:pointer;transition:border-color .15s}
-.entry-card:hover{border-color:var(--rose-deep)}
+.entry-icon-wrap{width:40px;height:40px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;margin-top:2px}
+.entry-card{flex:1;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 14px;box-shadow:var(--shadow)}
 .entry-row{display:flex;justify-content:space-between;align-items:center}
 .entry-title{font-size:14px;font-weight:600;color:var(--ink)}
 .entry-time{font-size:12px;color:var(--muted)}
 .entry-detail{font-size:12px;color:var(--muted);margin-top:3px}
 .entry-badge-row{display:flex;align-items:center;justify-content:space-between;margin-top:6px}
 .entry-badge{font-size:11px;font-weight:500;padding:2px 8px;border-radius:100px;display:inline-block}
-.entry-actions{display:flex;gap:6px}
-.entry-action-btn{font-size:11px;padding:2px 8px;border-radius:100px;border:1px solid var(--border);background:transparent;cursor:pointer;color:var(--muted);font-family:'DM Sans',sans-serif;transition:all .12s}
-.entry-action-btn:hover{border-color:var(--ink);color:var(--ink)}
-.entry-action-btn.del:hover{border-color:var(--danger);color:var(--danger)}
+.entry-actions{display:flex;gap:4px}
+.icon-action-btn{width:28px;height:28px;border-radius:8px;border:1px solid var(--border);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .12s;color:var(--muted)}
+.icon-action-btn:hover{background:var(--bg2);border-color:var(--accent);color:var(--accent)}
+.icon-action-btn.del:hover{border-color:var(--danger);color:var(--danger);background:var(--danger-bg)}
+
+/* SVG icons */
+.ic{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
 /* ── Empty ── */
 .empty{text-align:center;padding:60px 20px;color:var(--muted)}
@@ -97,19 +133,19 @@ body{font-family:'DM Sans',sans-serif;background:#FBF8F5;min-height:100vh;color:
 .empty-text{font-size:15px}
 
 /* ── FAB ── */
-.fab{position:fixed;bottom:calc(24px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:var(--ink);color:white;border:none;border-radius:100px;padding:16px 32px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:8px;z-index:50;transition:all .15s}
+.fab{position:fixed;bottom:calc(24px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);border:none;border-radius:100px;padding:16px 32px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:8px;z-index:50;transition:all .15s}
 .fab:hover{transform:translateX(-50%) scale(1.03)}
 .fab:active{transform:translateX(-50%) scale(.97)}
 
 /* ── Sheet ── */
-.overlay{position:fixed;inset:0;background:rgba(44,26,14,0.4);z-index:60;display:flex;flex-direction:column;justify-content:flex-end}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:60;display:flex;flex-direction:column;justify-content:flex-end}
 .sheet{background:var(--card);border-radius:24px 24px 0 0;padding:12px 20px calc(40px + env(safe-area-inset-bottom));max-height:92vh;overflow-y:auto;animation:slideUp .22s ease}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.sheet-handle{width:40px;height:4px;background:var(--stone);border-radius:100px;margin:0 auto 20px}
+.sheet-handle{width:40px;height:4px;background:var(--border);border-radius:100px;margin:0 auto 20px}
 .sheet-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--ink);margin-bottom:20px}
 .log-type-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:8px}
 .log-type-btn{padding:16px 8px;border-radius:16px;border:1.5px solid var(--border);background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;transition:all .15s}
-.log-type-btn:hover{border-color:var(--ink);transform:scale(1.02)}
+.log-type-btn:hover{border-color:var(--accent);transform:scale(1.02)}
 .log-type-icon{font-size:26px}
 .log-type-label{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:var(--ink)}
 
@@ -118,19 +154,23 @@ body{font-family:'DM Sans',sans-serif;background:#FBF8F5;min-height:100vh;color:
 .field-label{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px;display:block}
 .field-row{display:flex;gap:8px;flex-wrap:wrap}
 .chip-btn{padding:8px 14px;border-radius:100px;border:1.5px solid var(--border);background:transparent;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;color:var(--ink);transition:all .12s}
-.chip-btn.active{background:var(--ink);color:white;border-color:var(--ink)}
-.text-input{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);background:var(--cream);outline:none;transition:border .15s}
-.text-input:focus{border-color:var(--ink)}
-.number-input{width:100px;padding:10px 14px;border:1.5px solid var(--border);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);background:var(--cream);outline:none}
-.datetime-input{flex:1;padding:10px 14px;border:1.5px solid var(--border);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink);background:var(--cream);outline:none}
-.datetime-input:focus{border-color:var(--ink)}
-.submit-btn{width:100%;padding:14px;background:var(--ink);color:white;border:none;border-radius:14px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;margin-top:8px;transition:all .15s}
+.chip-btn.active{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.text-input{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);background:var(--bg);outline:none;transition:border .15s}
+.text-input:focus{border-color:var(--accent)}
+.number-input{width:100px;padding:10px 14px;border:1.5px solid var(--border);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);background:var(--bg);outline:none}
+.submit-btn{width:100%;padding:14px;background:var(--ink);color:var(--bg);border:none;border-radius:14px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;margin-top:8px;transition:all .15s}
 .submit-btn:hover{opacity:.9}
 .submit-btn:disabled{opacity:.5;cursor:not-allowed}
-.submit-btn.secondary{background:var(--stone);color:var(--ink)}
-.submit-btn.danger{background:var(--danger);color:white}
+.submit-btn.secondary{background:var(--bg2);color:var(--ink);border:1px solid var(--border)}
+.submit-btn.danger{background:var(--danger);color:#fff}
 .back-btn{background:none;border:none;cursor:pointer;color:var(--muted);font-size:14px;margin-bottom:12px;padding:0;font-family:'DM Sans',sans-serif}
 .section-divider{height:1px;background:var(--border);margin:16px 0}
+.confirm-row{display:flex;gap:8px;margin-top:8px}
+
+/* Time picker highlight box */
+.time-box{background:var(--bg2);border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:16px}
+.time-box-label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px}
+.time-box-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 
 /* ── Analytics ── */
 .analytics{padding:0 20px 120px}
@@ -150,51 +190,72 @@ body{font-family:'DM Sans',sans-serif;background:#FBF8F5;min-height:100vh;color:
 .profile-manager{padding:20px;padding-bottom:120px}
 .section-header{font-family:'DM Serif Display',serif;font-size:20px;color:var(--ink);margin-bottom:16px}
 .profile-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:var(--shadow);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;transition:all .15s}
-.profile-card:hover{border-color:var(--rose-deep)}
-.profile-card.current{border-color:var(--rose-deep);background:var(--rose)}
+.profile-card.current{border-color:var(--accent)}
 .profile-info{display:flex;align-items:center;gap:12px;cursor:pointer;flex:1}
 .profile-big-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:600;flex-shrink:0}
-.profile-details .name{font-size:15px;font-weight:600;color:var(--ink)}
-.profile-details .age{font-size:12px;color:var(--muted);margin-top:2px}
+.profile-details .p-name{font-size:15px;font-weight:600;color:var(--ink)}
+.profile-details .p-age{font-size:12px;color:var(--muted);margin-top:2px}
 .profile-card-actions{display:flex;gap:6px;align-items:center}
 .add-baby-card{background:transparent;border:1.5px dashed var(--subtle);border-radius:16px;padding:16px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .15s}
-.add-baby-card:hover{border-color:var(--rose-deep)}
+.add-baby-card:hover{border-color:var(--accent)}
 .color-picker{display:flex;gap:8px;flex-wrap:wrap}
 .color-dot{width:28px;height:28px;border-radius:50%;cursor:pointer;border:2.5px solid transparent;transition:all .15s;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
 .color-dot.selected{border-color:var(--ink)}
 .small-btn{padding:6px 12px;border-radius:100px;border:1px solid var(--border);background:transparent;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;cursor:pointer;color:var(--muted);transition:all .12s}
-.small-btn:hover{border-color:var(--ink);color:var(--ink)}
-.small-btn.danger:hover{border-color:var(--danger);color:var(--danger)}
+.small-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ── Settings page ── */
+.settings-page{padding:20px;padding-bottom:120px}
+.settings-section{background:var(--card);border:1px solid var(--border);border-radius:16px;margin-bottom:12px;overflow:hidden}
+.settings-row{display:flex;align-items:center;justify-content:space-between;padding:16px;border-bottom:1px solid var(--border)}
+.settings-row:last-child{border-bottom:none}
+.settings-row-label{font-size:14px;font-weight:500;color:var(--ink)}
+.settings-row-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.settings-section-title{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;padding:16px 16px 8px;border-bottom:1px solid var(--border)}
+
+/* Toggle switch */
+.toggle{position:relative;width:44px;height:26px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0;position:absolute}
+.toggle-track{position:absolute;inset:0;border-radius:100px;background:var(--border);transition:.3s;cursor:pointer}
+.toggle input:checked+.toggle-track{background:var(--accent)}
+.toggle-thumb{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:white;transition:.3s;pointer-events:none;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.toggle input:checked~.toggle-thumb{left:21px}
+
+/* Gender chips */
+.gender-row{display:flex;gap:8px}
+.gender-chip{flex:1;padding:10px;border-radius:12px;border:1.5px solid var(--border);background:transparent;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;color:var(--ink);text-align:center;transition:all .15s}
+.gender-chip.girl.active{background:#F2D4CC;border-color:#C4705A;color:#7A3020}
+.gender-chip.boy.active{background:#C8DCF0;border-color:#4A80B8;color:#1A3D6B}
+.gender-chip.neutral.active{background:var(--bg2);border-color:var(--ink)}
 
 /* ── Auth ── */
-.auth-screen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;background:#FBF8F5}
-.auth-logo{font-family:'DM Serif Display',serif;font-size:40px;color:#2C1A0E;margin-bottom:6px;text-align:center}
-.auth-logo span{color:#C4705A;font-style:italic}
+.auth-screen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;background:var(--bg)}
+.auth-logo{font-family:'DM Serif Display',serif;font-size:40px;color:var(--ink);margin-bottom:6px;text-align:center}
+.auth-logo span{color:var(--accent);font-style:italic}
 .auth-tagline{font-size:15px;color:var(--muted);margin-bottom:40px;text-align:center}
 .auth-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px 24px;width:100%;max-width:360px;box-shadow:var(--shadow-lg)}
 .auth-title{font-size:18px;font-weight:600;color:var(--ink);margin-bottom:20px}
 .auth-or{display:flex;align-items:center;gap:10px;margin:16px 0;color:var(--subtle);font-size:12px}
 .auth-or::before,.auth-or::after{content:'';flex:1;height:1px;background:var(--border)}
-.google-btn{width:100%;padding:13px;background:white;color:var(--ink);border:1.5px solid var(--border);border-radius:14px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all .15s}
-.google-btn:hover{border-color:var(--ink);box-shadow:var(--shadow)}
+.google-btn{width:100%;padding:13px;background:var(--card);color:var(--ink);border:1.5px solid var(--border);border-radius:14px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all .15s}
+.google-btn:hover{border-color:var(--accent);box-shadow:var(--shadow)}
 .google-icon{width:18px;height:18px;flex-shrink:0}
 .auth-toggle{font-size:13px;color:var(--muted);text-align:center;margin-top:16px}
-.auth-toggle span{color:var(--rose-deep);cursor:pointer;font-weight:500}
+.auth-toggle span{color:var(--accent);cursor:pointer;font-weight:500}
 .auth-msg{font-size:13px;margin-top:10px;padding:10px 12px;border-radius:10px}
-.auth-msg.error{color:var(--rose-deep);background:var(--rose)}
-.auth-msg.info{color:var(--mint-text);background:var(--mint)}
+.auth-msg.error{color:var(--danger);background:var(--danger-bg)}
+.auth-msg.info{color:var(--accent2-text);background:var(--accent2-bg)}
 
 /* ── Toast ── */
-.toast{position:fixed;bottom:calc(90px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:var(--ink);color:white;padding:10px 20px;border-radius:100px;font-size:13px;font-weight:500;z-index:100;animation:fadeUp .2s ease;white-space:nowrap;box-shadow:var(--shadow-lg)}
+.toast{position:fixed;bottom:calc(90px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 20px;border-radius:100px;font-size:13px;font-weight:500;z-index:200;animation:fadeUp .2s ease;white-space:nowrap;box-shadow:var(--shadow-lg)}
 @keyframes fadeUp{from{transform:translateX(-50%) translateY(10px);opacity:0}to{transform:translateX(-50%) translateY(0);opacity:1}}
 
 /* ── Spinner / Loading ── */
 .spinner{width:18px;height:18px;border:2px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .6s linear infinite;display:inline-block;vertical-align:middle}
 .spinner.dark{border-color:rgba(44,26,14,.15);border-top-color:var(--ink)}
 @keyframes spin{to{transform:rotate(360deg)}}
-.loading-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;background:#FBF8F5}
-.loading-logo{font-family:'DM Serif Display',serif;font-size:32px;color:#2C1A0E}
-.confirm-row{display:flex;gap:8px;margin-top:8px}
+.loading-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;background:var(--bg)}
+.loading-logo{font-family:'DM Serif Display',serif;font-size:32px;color:var(--ink)}
 </style>
 </head>
 <body>
@@ -211,18 +272,18 @@ const { useState, useEffect, useRef, useCallback } = React;
 const SUPABASE_URL      = 'https://ulffgfxasjtxalnfgpuw.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVsZmZnZnhhc2p0eGFsbmZncHV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4Mjc4OTksImV4cCI6MjA5MTQwMzg5OX0.3fOaZJdXp1aoFLGvVozmMPs3Ulk80BNjP2Y5h_eL2AM';
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-  auth: {
-    redirectTo: 'https://lullaby.skofi.tech'
-  }
+  auth: { redirectTo: 'https://lullaby.skofi.tech' }
 });
 
 // ── Constants ──────────────────────────────────────────────────
 const COLORS = [
-  {id:'rose',bg:'#F2D4CC',text:'#7A3020',dark:'#C4705A'},
-  {id:'sky', bg:'#C8DCF0',text:'#1A3D6B',dark:'#4A80B8'},
-  {id:'mint',bg:'#C8EAD8',text:'#1A5030',dark:'#3A9060'},
-  {id:'lav', bg:'#DDD4F0',text:'#3A2878',dark:'#7060B8'},
-  {id:'sun', bg:'#F5E4BC',text:'#6A4010',dark:'#C08030'},
+  {id:'rose', bg:'#F2D4CC',text:'#7A3020',dark:'#C4705A'},
+  {id:'sky',  bg:'#C8DCF0',text:'#1A3D6B',dark:'#4A80B8'},
+  {id:'mint', bg:'#C8EAD8',text:'#1A5030',dark:'#3A9060'},
+  {id:'lav',  bg:'#DDD4F0',text:'#3A2878',dark:'#7060B8'},
+  {id:'sun',  bg:'#F5E4BC',text:'#6A4010',dark:'#C08030'},
+  {id:'pink', bg:'#F5C8E0',text:'#7A1848',dark:'#C050A0'},
+  {id:'teal', bg:'#C0E8E8',text:'#1A5050',dark:'#3A9898'},
 ];
 const LOG_TYPES = [
   {id:'feed',  icon:'🍼',label:'Feed'},
@@ -240,99 +301,91 @@ const ENTRY_META = {
 };
 
 // ── Helpers ────────────────────────────────────────────────────
-const fmtDur = s => { if(!s&&s!==0)return'—'; const m=Math.floor(s/60),r=s%60; if(m>=60)return`${Math.floor(m/60)}h ${m%60}m`; return`${m}m ${r<10?'0'+r:r}s` };
-const fmtTime = ts => { const d=new Date(ts); let h=d.getHours(),m=d.getMinutes(); const ap=h>=12?'pm':'am'; h=h%12||12; return`${h}:${m<10?'0'+m:m} ${ap}` };
-const timeAgo = ts => { const d=Math.floor((Date.now()-ts)/1000); if(d<60)return'just now'; if(d<3600)return`${Math.floor(d/60)}m ago`; if(d<86400)return`${Math.floor(d/3600)}h ${Math.floor((d%3600)/60)}m ago`; return`${Math.floor(d/86400)}d ago` };
-const dayLabel = ts => { const d=new Date(ts),n=new Date(); if(d.toDateString()===n.toDateString())return'Today'; const y=new Date(n); y.setDate(y.getDate()-1); if(d.toDateString()===y.toDateString())return'Yesterday'; return d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'short'}) };
-const getBabyAge = dob => { if(!dob)return''; const days=Math.floor((Date.now()-new Date(dob))/86400000); if(days<30)return`${days}d old`; if(days<365)return`${Math.floor(days/30)}mo old`; return`${Math.floor(days/365)}y ${Math.floor((days%365)/30)}mo old` };
-const groupByDay = items => { const g={}; items.forEach(l=>{const k=dayLabel(l.start_time);if(!g[k])g[k]=[];g[k].push(l)}); return Object.entries(g) };
-const lsGet = (k,fb) => { try{ const v=localStorage.getItem(k); return v?JSON.parse(v):fb }catch{ return fb } };
-const lsSet = (k,v) => { try{ localStorage.setItem(k,JSON.stringify(v)) }catch{} };
-// Convert timestamp to datetime-local string
-const tsToLocal = ts => { const d=new Date(ts); const pad=n=>String(n).padStart(2,'0'); return`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}` };
-const localToTs = s => new Date(s).getTime();
+const fmtDur = s=>{if(!s&&s!==0)return'—';const m=Math.floor(s/60),r=s%60;if(m>=60)return`${Math.floor(m/60)}h ${m%60}m`;return`${m}m ${r<10?'0'+r:r}s`};
+const fmtTime= ts=>{const d=new Date(ts);let h=d.getHours(),m=d.getMinutes();const ap=h>=12?'pm':'am';h=h%12||12;return`${h}:${m<10?'0'+m:m} ${ap}`};
+const timeAgo= ts=>{const d=Math.floor((Date.now()-ts)/1000);if(d<60)return'just now';if(d<3600)return`${Math.floor(d/60)}m ago`;if(d<86400)return`${Math.floor(d/3600)}h ${Math.floor((d%3600)/60)}m ago`;return`${Math.floor(d/86400)}d ago`};
+const dayLabel=ts=>{const d=new Date(ts),n=new Date();if(d.toDateString()===n.toDateString())return'Today';const y=new Date(n);y.setDate(y.getDate()-1);if(d.toDateString()===y.toDateString())return'Yesterday';return d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'short'})};
+const getBabyAge=dob=>{if(!dob)return'';const days=Math.floor((Date.now()-new Date(dob))/86400000);if(days<30)return`${days}d old`;if(days<365)return`${Math.floor(days/30)}mo old`;return`${Math.floor(days/365)}y ${Math.floor((days%365)/30)}mo old`};
+const groupByDay=items=>{const g={};items.forEach(l=>{const k=dayLabel(l.start_time);if(!g[k])g[k]=[];g[k].push(l)});return Object.entries(g)};
+const lsGet=(k,fb)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):fb}catch{return fb}};
+const lsSet=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
+const tsToLocal=ts=>{const d=new Date(ts);const p=n=>String(n).padStart(2,'0');return`${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`};
+const localToTs=s=>new Date(s).getTime();
+// Default datetime-local to now
+const nowLocal=()=>tsToLocal(Date.now());
 
 // ── Timer hook ─────────────────────────────────────────────────
-function useTimer(startTs) {
-  const [now,setNow] = useState(Date.now());
-  useEffect(() => {
-    if(!startTs) return;
-    const t = setInterval(()=>setNow(Date.now()), 1000);
-    return ()=>clearInterval(t);
-  }, [startTs]);
-  return startTs ? Math.floor((now-startTs)/1000) : 0;
+function useTimer(startTs){
+  const [now,setNow]=useState(Date.now());
+  useEffect(()=>{if(!startTs)return;const t=setInterval(()=>setNow(Date.now()),1000);return()=>clearInterval(t)},[startTs]);
+  return startTs?Math.floor((now-startTs)/1000):0;
 }
 
-// ── Google Icon SVG ────────────────────────────────────────────
-const GoogleIcon = () => (
-  <svg className="google-icon" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
-    <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/>
-    <path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#34A853"/>
-    <path d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332z" fill="#FBBC05"/>
-    <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.962L3.964 7.294C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
-  </svg>
-);
+// ── SVG Icons ──────────────────────────────────────────────────
+const IconPencil=()=><svg className="ic" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>;
+const IconTrash=()=><svg className="ic" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>;
+const GoogleIcon=()=><svg className="google-icon" viewBox="0 0 18 18"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#34A853"/><path d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.962L3.964 7.294C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>;
+
+// ── Toggle component ───────────────────────────────────────────
+function Toggle({checked,onChange}){
+  return(
+    <label className="toggle">
+      <input type="checkbox" checked={checked} onChange={e=>onChange(e.target.checked)}/>
+      <div className="toggle-track"/>
+      <div className="toggle-thumb"/>
+    </label>
+  );
+}
 
 // ── Auth Screen ────────────────────────────────────────────────
-function AuthScreen() {
-  const [mode,setMode] = useState('login');
-  const [email,setEmail] = useState('');
-  const [password,setPassword] = useState('');
-  const [loading,setLoading] = useState(false);
-  const [googleLoading,setGoogleLoading] = useState(false);
-  const [msg,setMsg] = useState({text:'',type:''});
+function AuthScreen(){
+  const [mode,setMode]=useState('login');
+  const [email,setEmail]=useState('');
+  const [password,setPassword]=useState('');
+  const [loading,setLoading]=useState(false);
+  const [googleLoading,setGoogleLoading]=useState(false);
+  const [msg,setMsg]=useState({text:'',type:''});
 
-  async function handleEmail() {
-    if(!email||!password) return;
-    setLoading(true); setMsg({text:'',type:''});
-    const { error } = await (mode==='login'
-      ? sb.auth.signInWithPassword({email,password})
-      : sb.auth.signUp({email,password}));
+  async function handleEmail(){
+    if(!email||!password)return;
+    setLoading(true);setMsg({text:'',type:''});
+    const{error}=await(mode==='login'
+      ?sb.auth.signInWithPassword({email,password})
+      :sb.auth.signUp({email,password}));
     setLoading(false);
-    if(error){ setMsg({text:error.message,type:'error'}); return; }
-    if(mode==='signup') setMsg({text:'Check your email to confirm your account, then log in.',type:'info'});
+    if(error){setMsg({text:error.message,type:'error'});return;}
+    if(mode==='signup')setMsg({text:'Check your email to confirm, then log in.',type:'info'});
   }
 
-  async function handleGoogle() {
+  async function handleGoogle(){
     setGoogleLoading(true);
-    const { error } = await sb.auth.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: 'https://lullaby.skofi.tech' }
-    });
-    if(error){ setMsg({text:error.message,type:'error'}); setGoogleLoading(false); }
-    // On success, Supabase redirects to Google, then back — no need to setLoading(false)
+    const{error}=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:'https://lullaby.skofi.tech'}});
+    if(error){setMsg({text:error.message,type:'error'});setGoogleLoading(false);}
   }
 
-  return (
+  return(
     <div className="auth-screen">
       <div className="auth-logo">lullaby<span>.</span></div>
       <div className="auth-tagline">Track every moment with love 🌙</div>
       <div className="auth-card">
         <div className="auth-title">{mode==='login'?'Welcome back':'Create account'}</div>
-
         <button className="google-btn" onClick={handleGoogle} disabled={googleLoading}>
-          {googleLoading ? <span className="spinner dark"/> : <GoogleIcon/>}
-          {googleLoading ? 'Redirecting…' : 'Continue with Google'}
+          {googleLoading?<span className="spinner dark"/>:<GoogleIcon/>}
+          {googleLoading?'Redirecting…':'Continue with Google'}
         </button>
-
         <div className="auth-or">or</div>
-
-        <div className="field">
-          <label className="field-label">Email</label>
+        <div className="field"><label className="field-label">Email</label>
           <input className="text-input" type="email" placeholder="you@example.com" value={email} onChange={e=>setEmail(e.target.value)} onKeyDown={e=>e.key==='Enter'&&handleEmail()}/>
         </div>
-        <div className="field">
-          <label className="field-label">Password</label>
+        <div className="field"><label className="field-label">Password</label>
           <input className="text-input" type="password" placeholder="••••••••" value={password} onChange={e=>setPassword(e.target.value)} onKeyDown={e=>e.key==='Enter'&&handleEmail()}/>
         </div>
-        {msg.text && <div className={`auth-msg ${msg.type}`}>{msg.text}</div>}
+        {msg.text&&<div className={`auth-msg ${msg.type}`}>{msg.text}</div>}
         <button className="submit-btn" onClick={handleEmail} disabled={loading}>
-          {loading ? <span className="spinner"/> : mode==='login' ? 'Log in' : 'Sign up'}
+          {loading?<span className="spinner"/>:mode==='login'?'Log in':'Sign up'}
         </button>
         <div className="auth-toggle">
-          {mode==='login'
-            ? <>No account? <span onClick={()=>{setMode('signup');setMsg({text:'',type:''})}}>Sign up</span></>
-            : <>Have an account? <span onClick={()=>{setMode('login');setMsg({text:'',type:''})}}>Log in</span></>}
+          {mode==='login'?<>No account? <span onClick={()=>{setMode('signup');setMsg({text:'',type:''})}}>Sign up</span></>:<>Have an account? <span onClick={()=>{setMode('login');setMsg({text:'',type:''})}}>Log in</span></>}
         </div>
       </div>
     </div>
@@ -340,60 +393,49 @@ function AuthScreen() {
 }
 
 // ── Edit Log Sheet ─────────────────────────────────────────────
-function EditLogSheet({ log, onSave, onDelete, onClose }) {
-  const meta = ENTRY_META[log.type] || ENTRY_META.note;
-  const [startStr, setStartStr] = useState(tsToLocal(log.start_time));
-  const [endStr,   setEndStr]   = useState(log.end_time ? tsToLocal(log.end_time) : '');
-  const [feedType, setFeedType] = useState(log.feed_type || 'Breast');
-  const [side,     setSide]     = useState(log.side || 'Left');
-  const [amount,   setAmount]   = useState(log.amount || '');
+function EditLogSheet({log,onSave,onDelete,onClose}){
+  const m=ENTRY_META[log.type]||ENTRY_META.note;
+  const [startStr,setStartStr]=useState(tsToLocal(log.start_time));
+  const [endStr,setEndStr]=useState(log.end_time?tsToLocal(log.end_time):'');
+  const [feedType,setFeedType]=useState(log.feed_type||'Breast');
+  const [side,setSide]=useState(log.side||'Left');
+  const [amount,setAmount]=useState(log.amount||'');
   const [diaperType,setDiaperType]=useState(log.diaper_type||'Pee');
-  const [quality,  setQuality]  = useState(log.quality || 'good');
-  const [notes,    setNotes]    = useState(log.notes || '');
+  const [quality,setQuality]=useState(log.quality||'good');
+  const [notes,setNotes]=useState(log.notes||'');
   const [confirmDelete,setConfirmDelete]=useState(false);
-  const [saving,   setSaving]   = useState(false);
+  const [saving,setSaving]=useState(false);
 
-  async function handleSave() {
+  async function handleSave(){
     setSaving(true);
-    const startTs = localToTs(startStr);
-    const endTs   = endStr ? localToTs(endStr) : null;
-    const dur     = endTs && startTs ? Math.floor((endTs-startTs)/1000) : log.duration;
-    const updates = {
-      start_time: startTs,
-      end_time:   endTs,
-      duration:   dur,
-      feed_type:  log.type==='feed'   ? feedType  : log.feed_type,
-      side:       (log.type==='feed'||log.type==='pump') ? side : log.side,
-      amount:     (log.type==='feed'||log.type==='pump') ? amount : log.amount,
-      diaper_type:log.type==='diaper' ? diaperType: log.diaper_type,
-      quality:    log.type==='sleep'  ? quality   : log.quality,
-      notes,
-    };
-    await onSave(log.id, updates);
+    const startTs=localToTs(startStr);
+    const endTs=endStr?localToTs(endStr):null;
+    const dur=endTs&&startTs?Math.max(0,Math.floor((endTs-startTs)/1000)):log.duration;
+    await onSave(log.id,{start_time:startTs,end_time:endTs,duration:dur,
+      feed_type:log.type==='feed'?feedType:log.feed_type,
+      side:(log.type==='feed'||log.type==='pump')?side:log.side,
+      amount:(log.type==='feed'||log.type==='pump')?amount:log.amount,
+      diaper_type:log.type==='diaper'?diaperType:log.diaper_type,
+      quality:log.type==='sleep'?quality:log.quality,notes});
     setSaving(false);
   }
 
-  return (
+  return(
     <div className="overlay" onClick={e=>{if(e.target===e.currentTarget)onClose()}}>
       <div className="sheet">
         <div className="sheet-handle"/>
         <button className="back-btn" onClick={onClose}>← Back</button>
-        <div className="sheet-title">{meta.icon} Edit {meta.label}</div>
-
-        <div className="field">
-          <span className="field-label">Start time</span>
+        <div className="sheet-title">{m.icon} Edit {m.label}</div>
+        <div className="field"><span className="field-label">Start time</span>
           <input className="text-input" type="datetime-local" value={startStr} onChange={e=>setStartStr(e.target.value)}/>
         </div>
-
-        {(log.type==='feed'||log.type==='sleep'||log.type==='pump') && (
-          <div className="field">
-            <span className="field-label">End time</span>
+        {(log.type==='feed'||log.type==='sleep'||log.type==='pump')&&(
+          <div className="field"><span className="field-label">End time</span>
             <input className="text-input" type="datetime-local" value={endStr} onChange={e=>setEndStr(e.target.value)}/>
-            {endStr && startStr && <div style={{fontSize:12,color:'var(--muted)',marginTop:4}}>Duration: {fmtDur(Math.max(0,Math.floor((localToTs(endStr)-localToTs(startStr))/1000)))}</div>}
+            {endStr&&startStr&&<div style={{fontSize:12,color:'var(--muted)',marginTop:4}}>Duration: {fmtDur(Math.max(0,Math.floor((localToTs(endStr)-localToTs(startStr))/1000)))}</div>}
           </div>
         )}
-
-        {log.type==='feed' && <>
+        {log.type==='feed'&&<>
           <div className="field"><span className="field-label">Type</span><div className="field-row">
             {['Breast','Bottle','Solid'].map(t=><button key={t} className={`chip-btn ${feedType===t?'active':''}`} onClick={()=>setFeedType(t)}>{t}</button>)}
           </div></div>
@@ -402,344 +444,532 @@ function EditLogSheet({ log, onSave, onDelete, onClose }) {
           </div></div>}
           {feedType==='Bottle'&&<div className="field"><span className="field-label">Amount (ml)</span><input className="number-input" type="number" value={amount} onChange={e=>setAmount(e.target.value)}/></div>}
         </>}
-
-        {log.type==='sleep' && <div className="field"><span className="field-label">Quality</span><div className="field-row">
+        {log.type==='sleep'&&<div className="field"><span className="field-label">Quality</span><div className="field-row">
           {['good','ok','rough'].map(q=><button key={q} className={`chip-btn ${quality===q?'active':''}`} onClick={()=>setQuality(q)}>{q}</button>)}
         </div></div>}
-
-        {log.type==='diaper' && <div className="field"><span className="field-label">Type</span><div className="field-row">
+        {log.type==='diaper'&&<div className="field"><span className="field-label">Type</span><div className="field-row">
           {['Pee','Poop','Both'].map(t=><button key={t} className={`chip-btn ${diaperType===t?'active':''}`} onClick={()=>setDiaperType(t)}>{t}</button>)}
         </div></div>}
-
-        {log.type==='pump' && <>
+        {log.type==='pump'&&<>
           <div className="field"><span className="field-label">Side</span><div className="field-row">
             {['Left','Right','Both'].map(s=><button key={s} className={`chip-btn ${side===s?'active':''}`} onClick={()=>setSide(s)}>{s}</button>)}
           </div></div>
           <div className="field"><span className="field-label">Amount (ml)</span><input className="number-input" type="number" value={amount} onChange={e=>setAmount(e.target.value)}/></div>
         </>}
-
         <div className="field"><span className="field-label">Notes</span>
-          <textarea className="text-input" rows={3} style={{resize:'none'}} value={notes} onChange={e=>setNotes(e.target.value)} placeholder="Optional notes..."/>
+          <textarea className="text-input" rows={3} style={{resize:'none'}} value={notes} onChange={e=>setNotes(e.target.value)} placeholder="Optional..."/>
         </div>
-
-        <button className="submit-btn" onClick={handleSave} disabled={saving}>
-          {saving ? <span className="spinner"/> : 'Save changes'}
-        </button>
-
+        <button className="submit-btn" onClick={handleSave} disabled={saving}>{saving?<span className="spinner"/>:'Save changes'}</button>
         <div className="section-divider"/>
-
         {!confirmDelete
-          ? <button className="submit-btn danger" onClick={()=>setConfirmDelete(true)}>Delete this log</button>
-          : <div>
-              <div style={{fontSize:13,color:'var(--muted)',marginBottom:10,textAlign:'center'}}>Are you sure? This can't be undone.</div>
-              <div className="confirm-row">
-                <button className="submit-btn danger" style={{flex:1}} onClick={()=>onDelete(log.id)}>Yes, delete</button>
-                <button className="submit-btn secondary" style={{flex:1,marginTop:0}} onClick={()=>setConfirmDelete(false)}>Cancel</button>
-              </div>
-            </div>}
+          ?<button className="submit-btn danger" onClick={()=>setConfirmDelete(true)}>Delete this log</button>
+          :<div>
+            <div style={{fontSize:13,color:'var(--muted)',marginBottom:10,textAlign:'center'}}>Are you sure? This cannot be undone.</div>
+            <div className="confirm-row">
+              <button className="submit-btn danger" style={{flex:1}} onClick={()=>onDelete(log.id)}>Yes, delete</button>
+              <button className="submit-btn secondary" style={{flex:1,marginTop:0}} onClick={()=>setConfirmDelete(false)}>Cancel</button>
+            </div>
+          </div>}
       </div>
     </div>
   );
 }
 
 // ── Edit Profile Sheet ─────────────────────────────────────────
-function EditProfileSheet({ profile, onSave, onDelete, onClose }) {
-  const [name, setName] = useState(profile.name);
-  const [dob,  setDob]  = useState(profile.dob || '');
-  const [color,setColor]= useState(profile.color || 'rose');
+function EditProfileSheet({profile,onSave,onDelete,onClose}){
+  const [name,setName]=useState(profile.name);
+  const [dob,setDob]=useState(profile.dob||'');
+  const [color,setColor]=useState(profile.color||'rose');
+  const [gender,setGender]=useState(profile.gender||'neutral');
   const [confirmDelete,setConfirmDelete]=useState(false);
   const [saving,setSaving]=useState(false);
 
-  async function handleSave() {
-    if(!name.trim()) return;
+  async function handleSave(){
+    if(!name.trim())return;
     setSaving(true);
-    await onSave(profile.id, {name:name.trim(), dob:dob||null, color});
+    await onSave(profile.id,{name:name.trim(),dob:dob||null,color,gender});
     setSaving(false);
   }
 
-  return (
+  return(
     <div className="overlay" onClick={e=>{if(e.target===e.currentTarget)onClose()}}>
       <div className="sheet">
         <div className="sheet-handle"/>
         <button className="back-btn" onClick={onClose}>← Back</button>
         <div className="sheet-title">Edit baby profile</div>
-
         <div className="field"><label className="field-label">Name</label>
           <input className="text-input" placeholder="Baby's name" value={name} onChange={e=>setName(e.target.value)}/>
         </div>
         <div className="field"><label className="field-label">Date of birth</label>
           <input className="text-input" type="date" value={dob} onChange={e=>setDob(e.target.value)}/>
         </div>
+        <div className="field"><label className="field-label">Gender</label>
+          <div className="gender-row">
+            {[['girl','👧 Girl'],['boy','👦 Boy'],['neutral','⭐ Neutral']].map(([g,l])=>(
+              <button key={g} className={`gender-chip ${g} ${gender===g?'active':''}`} onClick={()=>setGender(g)}>{l}</button>
+            ))}
+          </div>
+        </div>
         <div className="field"><label className="field-label">Colour</label>
           <div className="color-picker">
             {COLORS.map(c=><div key={c.id} className={`color-dot ${color===c.id?'selected':''}`} style={{background:c.bg}} onClick={()=>setColor(c.id)}>{color===c.id?'✓':''}</div>)}
           </div>
         </div>
-
-        <button className="submit-btn" onClick={handleSave} disabled={saving || !name.trim()}>
-          {saving ? <span className="spinner"/> : 'Save changes'}
-        </button>
-
+        <button className="submit-btn" onClick={handleSave} disabled={saving||!name.trim()}>{saving?<span className="spinner"/>:'Save changes'}</button>
         <div className="section-divider"/>
         {!confirmDelete
-          ? <button className="submit-btn danger" onClick={()=>setConfirmDelete(true)}>Remove this baby</button>
-          : <div>
-              <div style={{fontSize:13,color:'var(--muted)',marginBottom:10,textAlign:'center'}}>This will delete all their logs too. Are you sure?</div>
-              <div className="confirm-row">
-                <button className="submit-btn danger" style={{flex:1}} onClick={()=>onDelete(profile.id)}>Yes, remove</button>
-                <button className="submit-btn secondary" style={{flex:1,marginTop:0}} onClick={()=>setConfirmDelete(false)}>Cancel</button>
-              </div>
-            </div>}
+          ?<button className="submit-btn danger" onClick={()=>setConfirmDelete(true)}>Remove this baby</button>
+          :<div>
+            <div style={{fontSize:13,color:'var(--muted)',marginBottom:10,textAlign:'center'}}>This deletes all their logs too. Are you sure?</div>
+            <div className="confirm-row">
+              <button className="submit-btn danger" style={{flex:1}} onClick={()=>onDelete(profile.id)}>Yes, remove</button>
+              <button className="submit-btn secondary" style={{flex:1,marginTop:0}} onClick={()=>setConfirmDelete(false)}>Cancel</button>
+            </div>
+          </div>}
       </div>
     </div>
   );
 }
 
-// ── Log sub-forms ──────────────────────────────────────────────
+// ── Log Forms ──────────────────────────────────────────────────
 function FeedForm({onSave,onTimer}){
-  const [ft,setFt]=useState('Breast');const[side,setSide]=useState('Left');const[amt,setAmt]=useState('');const[notes,setNotes]=useState('');const[timing,setTiming]=useState('now');
+  const [ft,setFt]=useState('Breast');
+  const [side,setSide]=useState('Left');
+  const [amt,setAmt]=useState('');
+  const [notes,setNotes]=useState('');
+  const [timing,setTiming]=useState('now');
+  const [startStr,setStartStr]=useState(nowLocal());
+  const [endStr,setEndStr]=useState('');
+
   return(<div>
-    <div className="field"><span className="field-label">Type</span><div className="field-row">{['Breast','Bottle','Solid'].map(t=><button key={t} className={`chip-btn ${ft===t?'active':''}`} onClick={()=>setFt(t)}>{t}</button>)}</div></div>
-    {ft==='Breast'&&<div className="field"><span className="field-label">Side</span><div className="field-row">{['Left','Right','Both'].map(s=><button key={s} className={`chip-btn ${side===s?'active':''}`} onClick={()=>setSide(s)}>{s}</button>)}</div></div>}
-    {ft==='Bottle'&&<div className="field"><span className="field-label">Amount (ml)</span><input className="number-input" type="number" placeholder="120" value={amt} onChange={e=>setAmt(e.target.value)}/></div>}
-    <div className="field"><span className="field-label">Timing</span><div className="field-row">
-      <button className={`chip-btn ${timing==='now'?'active':''}`} onClick={()=>setTiming('now')}>Start timer</button>
-      <button className={`chip-btn ${timing==='quick'?'active':''}`} onClick={()=>setTiming('quick')}>Log quick</button>
+    <div className="field"><span className="field-label">Type</span><div className="field-row">
+      {['Breast','Bottle','Solid'].map(t=><button key={t} className={`chip-btn ${ft===t?'active':''}`} onClick={()=>setFt(t)}>{t}</button>)}
     </div></div>
-    <div className="field"><span className="field-label">Notes</span><input className="text-input" placeholder="Optional..." value={notes} onChange={e=>setNotes(e.target.value)}/></div>
+    {ft==='Breast'&&<div className="field"><span className="field-label">Side</span><div className="field-row">
+      {['Left','Right','Both'].map(s=><button key={s} className={`chip-btn ${side===s?'active':''}`} onClick={()=>setSide(s)}>{s}</button>)}
+    </div></div>}
+    {ft==='Bottle'&&<div className="field"><span className="field-label">Amount (ml)</span>
+      <input className="number-input" type="number" placeholder="120" value={amt} onChange={e=>setAmt(e.target.value)}/>
+    </div>}
+    <div className="field"><span className="field-label">When</span><div className="field-row">
+      <button className={`chip-btn ${timing==='now'?'active':''}`} onClick={()=>setTiming('now')}>Start timer now</button>
+      <button className={`chip-btn ${timing==='past'?'active':''}`} onClick={()=>setTiming('past')}>Log past feed</button>
+    </div></div>
+    {timing==='past'&&(
+      <div className="time-box">
+        <div className="time-box-label">Feed times</div>
+        <div className="time-box-row">
+          <div style={{flex:1}}>
+            <div style={{fontSize:11,color:'var(--muted)',marginBottom:4}}>Started</div>
+            <input className="text-input" type="datetime-local" value={startStr} onChange={e=>setStartStr(e.target.value)}/>
+          </div>
+          <div style={{flex:1}}>
+            <div style={{fontSize:11,color:'var(--muted)',marginBottom:4}}>Ended</div>
+            <input className="text-input" type="datetime-local" value={endStr} onChange={e=>setEndStr(e.target.value)}/>
+          </div>
+        </div>
+        {startStr&&endStr&&localToTs(endStr)>localToTs(startStr)&&(
+          <div style={{fontSize:12,color:'var(--muted)',marginTop:8}}>Duration: {fmtDur(Math.floor((localToTs(endStr)-localToTs(startStr))/1000))}</div>
+        )}
+      </div>
+    )}
+    <div className="field"><span className="field-label">Notes</span>
+      <input className="text-input" placeholder="Optional..." value={notes} onChange={e=>setNotes(e.target.value)}/>
+    </div>
     {timing==='now'
       ?<button className="submit-btn" onClick={()=>onTimer(ft,side)}>▶ Start Feed Timer</button>
-      :<button className="submit-btn" onClick={()=>onSave({type:'feed',feed_type:ft,side,amount:amt,notes})}>Save Feed</button>}
+      :<button className="submit-btn" onClick={()=>{
+          const st=localToTs(startStr);
+          const et=endStr?localToTs(endStr):null;
+          const dur=et?Math.max(0,Math.floor((et-st)/1000)):null;
+          onSave({type:'feed',start_time:st,end_time:et,duration:dur,feed_type:ft,side,amount:amt,notes});
+        }}>Save Feed</button>}
   </div>);
 }
+
 function SleepForm({onSave,onTimer}){
-  const [mode,setMode]=useState('now');const[q,setQ]=useState('good');
+  const [mode,setMode]=useState('now');
+  const [quality,setQuality]=useState('good');
+  const [startStr,setStartStr]=useState(nowLocal());
+  const [endStr,setEndStr]=useState('');
+
   return(<div>
-    <div className="field"><span className="field-label">Mode</span><div className="field-row">
-      <button className={`chip-btn ${mode==='now'?'active':''}`} onClick={()=>setMode('now')}>Start timer</button>
-      <button className={`chip-btn ${mode==='log'?'active':''}`} onClick={()=>setMode('log')}>Log past</button>
+    <div className="field"><span className="field-label">When</span><div className="field-row">
+      <button className={`chip-btn ${mode==='now'?'active':''}`} onClick={()=>setMode('now')}>Start timer now</button>
+      <button className={`chip-btn ${mode==='past'?'active':''}`} onClick={()=>setMode('past')}>Log past sleep</button>
     </div></div>
-    {mode==='log'&&<div className="field"><span className="field-label">Quality</span><div className="field-row">{['good','ok','rough'].map(v=><button key={v} className={`chip-btn ${q===v?'active':''}`} onClick={()=>setQ(v)}>{v}</button>)}</div></div>}
+    {mode==='past'&&(
+      <div className="time-box">
+        <div className="time-box-label">Sleep times</div>
+        <div className="time-box-row">
+          <div style={{flex:1}}>
+            <div style={{fontSize:11,color:'var(--muted)',marginBottom:4}}>Fell asleep</div>
+            <input className="text-input" type="datetime-local" value={startStr} onChange={e=>setStartStr(e.target.value)}/>
+          </div>
+          <div style={{flex:1}}>
+            <div style={{fontSize:11,color:'var(--muted)',marginBottom:4}}>Woke up</div>
+            <input className="text-input" type="datetime-local" value={endStr} onChange={e=>setEndStr(e.target.value)}/>
+          </div>
+        </div>
+        {startStr&&endStr&&localToTs(endStr)>localToTs(startStr)&&(
+          <div style={{fontSize:12,color:'var(--muted)',marginTop:8}}>Duration: {fmtDur(Math.floor((localToTs(endStr)-localToTs(startStr))/1000))}</div>
+        )}
+      </div>
+    )}
+    {mode==='past'&&<div className="field"><span className="field-label">Quality</span><div className="field-row">
+      {['good','ok','rough'].map(q=><button key={q} className={`chip-btn ${quality===q?'active':''}`} onClick={()=>setQuality(q)}>{q}</button>)}
+    </div></div>}
     {mode==='now'
       ?<button className="submit-btn" onClick={onTimer}>😴 Start Sleep Timer</button>
-      :<button className="submit-btn" onClick={()=>onSave({type:'sleep',quality:q,duration:1800})}>Save Sleep</button>}
+      :<button className="submit-btn" onClick={()=>{
+          const st=localToTs(startStr);
+          const et=endStr?localToTs(endStr):null;
+          const dur=et?Math.max(0,Math.floor((et-st)/1000)):null;
+          onSave({type:'sleep',start_time:st,end_time:et,duration:dur,quality,notes:''});
+        }}>Save Sleep</button>}
   </div>);
 }
+
 function DiaperForm({onSave}){
-  const [dt,setDt]=useState('Pee');const[notes,setNotes]=useState('');
+  const [dt,setDt]=useState('Pee');
+  const [notes,setNotes]=useState('');
+  const [useCustomTime,setUseCustomTime]=useState(false);
+  const [timeStr,setTimeStr]=useState(nowLocal());
+
   return(<div>
-    <div className="field"><span className="field-label">Type</span><div className="field-row">{['Pee','Poop','Both'].map(t=><button key={t} className={`chip-btn ${dt===t?'active':''}`} onClick={()=>setDt(t)}>{t}</button>)}</div></div>
-    <div className="field"><span className="field-label">Notes</span><input className="text-input" placeholder="Optional..." value={notes} onChange={e=>setNotes(e.target.value)}/></div>
-    <button className="submit-btn" onClick={()=>onSave({type:'diaper',diaper_type:dt,notes})}>Save Diaper</button>
+    <div className="field"><span className="field-label">Type</span><div className="field-row">
+      {['Pee','Poop','Both'].map(t=><button key={t} className={`chip-btn ${dt===t?'active':''}`} onClick={()=>setDt(t)}>{t}</button>)}
+    </div></div>
+    <div className="field"><span className="field-label">When</span><div className="field-row">
+      <button className={`chip-btn ${!useCustomTime?'active':''}`} onClick={()=>setUseCustomTime(false)}>Right now</button>
+      <button className={`chip-btn ${useCustomTime?'active':''}`} onClick={()=>setUseCustomTime(true)}>Different time</button>
+    </div></div>
+    {useCustomTime&&(
+      <div className="time-box">
+        <div className="time-box-label">When did it happen?</div>
+        <input className="text-input" type="datetime-local" value={timeStr} onChange={e=>setTimeStr(e.target.value)}/>
+      </div>
+    )}
+    <div className="field"><span className="field-label">Notes</span>
+      <input className="text-input" placeholder="Optional..." value={notes} onChange={e=>setNotes(e.target.value)}/>
+    </div>
+    <button className="submit-btn" onClick={()=>onSave({type:'diaper',start_time:useCustomTime?localToTs(timeStr):Date.now(),diaper_type:dt,notes})}>Save Diaper</button>
   </div>);
 }
+
 function PumpForm({onSave}){
-  const [amt,setAmt]=useState('');const[side,setSide]=useState('Both');
+  const [amt,setAmt]=useState('');
+  const [side,setSide]=useState('Both');
+  const [startStr,setStartStr]=useState(nowLocal());
+  const [endStr,setEndStr]=useState('');
+  const [useCustomTime,setUseCustomTime]=useState(false);
+
   return(<div>
-    <div className="field"><span className="field-label">Side</span><div className="field-row">{['Left','Right','Both'].map(s=><button key={s} className={`chip-btn ${side===s?'active':''}`} onClick={()=>setSide(s)}>{s}</button>)}</div></div>
-    <div className="field"><span className="field-label">Amount (ml)</span><input className="number-input" type="number" placeholder="80" value={amt} onChange={e=>setAmt(e.target.value)}/></div>
-    <button className="submit-btn" onClick={()=>onSave({type:'pump',side,amount:amt,notes:''})}>Save Pump</button>
+    <div className="field"><span className="field-label">Side</span><div className="field-row">
+      {['Left','Right','Both'].map(s=><button key={s} className={`chip-btn ${side===s?'active':''}`} onClick={()=>setSide(s)}>{s}</button>)}
+    </div></div>
+    <div className="field"><span className="field-label">Amount (ml)</span>
+      <input className="number-input" type="number" placeholder="80" value={amt} onChange={e=>setAmt(e.target.value)}/>
+    </div>
+    <div className="field"><span className="field-label">When</span><div className="field-row">
+      <button className={`chip-btn ${!useCustomTime?'active':''}`} onClick={()=>setUseCustomTime(false)}>Right now</button>
+      <button className={`chip-btn ${useCustomTime?'active':''}`} onClick={()=>setUseCustomTime(true)}>Different time</button>
+    </div></div>
+    {useCustomTime&&(
+      <div className="time-box">
+        <div className="time-box-label">Pump times</div>
+        <div className="time-box-row">
+          <div style={{flex:1}}><div style={{fontSize:11,color:'var(--muted)',marginBottom:4}}>Started</div><input className="text-input" type="datetime-local" value={startStr} onChange={e=>setStartStr(e.target.value)}/></div>
+          <div style={{flex:1}}><div style={{fontSize:11,color:'var(--muted)',marginBottom:4}}>Ended</div><input className="text-input" type="datetime-local" value={endStr} onChange={e=>setEndStr(e.target.value)}/></div>
+        </div>
+      </div>
+    )}
+    <button className="submit-btn" onClick={()=>{
+      const st=useCustomTime?localToTs(startStr):Date.now();
+      const et=useCustomTime&&endStr?localToTs(endStr):null;
+      const dur=et?Math.max(0,Math.floor((et-st)/1000)):null;
+      onSave({type:'pump',start_time:st,end_time:et,duration:dur,side,amount:amt,notes:''});
+    }}>Save Pump</button>
   </div>);
 }
+
 function NoteForm({onSave}){
   const [t,setT]=useState('');
+  const [useCustomTime,setUseCustomTime]=useState(false);
+  const [timeStr,setTimeStr]=useState(nowLocal());
   return(<div>
-    <div className="field"><span className="field-label">Note</span><textarea className="text-input" rows={4} style={{resize:'none'}} value={t} onChange={e=>setT(e.target.value)}/></div>
-    <button className="submit-btn" onClick={()=>onSave({type:'note',notes:t})}>Save Note</button>
+    <div className="field"><span className="field-label">Note</span>
+      <textarea className="text-input" rows={4} style={{resize:'none'}} value={t} onChange={e=>setT(e.target.value)}/>
+    </div>
+    <div className="field"><span className="field-label">When</span><div className="field-row">
+      <button className={`chip-btn ${!useCustomTime?'active':''}`} onClick={()=>setUseCustomTime(false)}>Right now</button>
+      <button className={`chip-btn ${useCustomTime?'active':''}`} onClick={()=>setUseCustomTime(true)}>Different time</button>
+    </div></div>
+    {useCustomTime&&<div className="time-box"><input className="text-input" type="datetime-local" value={timeStr} onChange={e=>setTimeStr(e.target.value)}/></div>}
+    <button className="submit-btn" onClick={()=>onSave({type:'note',start_time:useCustomTime?localToTs(timeStr):Date.now(),notes:t})}>Save Note</button>
   </div>);
+}
+
+// ── Settings Page ──────────────────────────────────────────────
+function SettingsPage({session,darkMode,setDarkMode,onSignOut}){
+  const userMeta=session?.user?.user_metadata||{};
+  const userAvatar=userMeta.avatar_url;
+  const userName=userMeta.full_name||session?.user?.email||'';
+
+  return(
+    <div className="settings-page">
+      <div className="section-header">Settings</div>
+
+      {/* Account */}
+      <div className="settings-section">
+        <div className="settings-section-title">Account</div>
+        <div className="settings-row">
+          <div style={{display:'flex',alignItems:'center',gap:12}}>
+            <div style={{width:40,height:40,borderRadius:'50%',overflow:'hidden',background:'var(--accent-bg)',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:600,color:'var(--accent-text)',fontSize:16,flexShrink:0}}>
+              {userAvatar?<img src={userAvatar} style={{width:'100%',height:'100%',objectFit:'cover'}} alt=""/>:userName.charAt(0).toUpperCase()}
+            </div>
+            <div>
+              <div className="settings-row-label">{userName}</div>
+              <div className="settings-row-sub">{session?.user?.email}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Appearance */}
+      <div className="settings-section">
+        <div className="settings-section-title">Appearance</div>
+        <div className="settings-row">
+          <div>
+            <div className="settings-row-label">Dark mode</div>
+            <div className="settings-row-sub">Easy on the eyes at night</div>
+          </div>
+          <Toggle checked={darkMode} onChange={v=>{setDarkMode(v);lsSet('lul_dark',v)}}/>
+        </div>
+      </div>
+
+      {/* Data */}
+      <div className="settings-section">
+        <div className="settings-section-title">Data</div>
+        <div className="settings-row" style={{cursor:'default'}}>
+          <div>
+            <div className="settings-row-label">Your data</div>
+            <div className="settings-row-sub">All logs are saved to your account and sync across devices</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Sign out */}
+      <div style={{marginTop:16}}>
+        <button className="submit-btn danger" onClick={onSignOut}>Sign out</button>
+      </div>
+      <div style={{textAlign:'center',marginTop:20,fontSize:12,color:'var(--subtle)'}}>
+        Lullaby v1.0 · Made with love by <span style={{color:'var(--accent)',fontWeight:600}}>Skofi</span>
+      </div>
+    </div>
+  );
 }
 
 // ── Main App ───────────────────────────────────────────────────
-function App() {
-  const [session,setSession]         = useState(null);
-  const [authReady,setAuthReady]     = useState(false);
-  const [profiles,setProfiles]       = useState([]);
-  const [logs,setLogs]               = useState([]);
-  const [pid,setPid]                 = useState(null);
-  const [activeSleep,setActiveSleep] = useState(()=>lsGet('lul_sleep',null));
-  const [activeFeed,setActiveFeed]   = useState(()=>lsGet('lul_feed',null));
-  const [tab,setTab]                 = useState('timeline');
-  const [showSheet,setShowSheet]     = useState(false);
-  const [sheetStep,setSheetStep]     = useState('pick');
-  const [logType,setLogType]         = useState(null);
-  const [editingLog,setEditingLog]   = useState(null);
-  const [showNewP,setShowNewP]       = useState(false);
+function App(){
+  const [session,setSession]             = useState(null);
+  const [authReady,setAuthReady]         = useState(false);
+  const [profiles,setProfiles]           = useState([]);
+  const [logs,setLogs]                   = useState([]);
+  const [pid,setPid]                     = useState(null);
+  const [activeSleep,setActiveSleep]     = useState(()=>lsGet('lul_sleep',null));
+  const [activeFeed,setActiveFeed]       = useState(()=>lsGet('lul_feed',null));
+  const [tab,setTab]                     = useState('timeline');
+  const [showSheet,setShowSheet]         = useState(false);
+  const [sheetStep,setSheetStep]         = useState('pick');
+  const [logType,setLogType]             = useState(null);
+  const [editingLog,setEditingLog]       = useState(null);
+  const [showNewP,setShowNewP]           = useState(false);
   const [editingProfile,setEditingProfile] = useState(null);
-  const [newP,setNewP]               = useState({name:'',dob:'',color:'sky'});
-  const [toast,setToast]             = useState('');
-  const [saving,setSaving]           = useState(false);
+  const [newP,setNewP]                   = useState({name:'',dob:'',color:'rose',gender:'neutral'});
+  const [toast,setToast]                 = useState('');
+  const [saving,setSaving]               = useState(false);
+  const [darkMode,setDarkMode]           = useState(()=>lsGet('lul_dark',false));
 
-  const sleepSecs = useTimer(activeSleep?.start);
-  const feedSecs  = useTimer(activeFeed?.start);
+  const sleepSecs=useTimer(activeSleep?.start);
+  const feedSecs =useTimer(activeFeed?.start);
 
-  useEffect(()=>{ lsSet('lul_sleep',activeSleep) },[activeSleep]);
-  useEffect(()=>{ lsSet('lul_feed', activeFeed)  },[activeFeed]);
+  // Apply theme classes to body
+  const profile=profiles.find(p=>p.id===pid);
+  useEffect(()=>{
+    const b=document.body;
+    b.classList.toggle('dark',darkMode);
+    b.classList.remove('theme-girl','theme-boy','theme-neutral');
+    const gender=profile?.gender||'neutral';
+    if(gender==='girl')b.classList.add('theme-girl');
+    else if(gender==='boy')b.classList.add('theme-boy');
+    else b.classList.add('theme-neutral');
+  },[darkMode,profile]);
 
-  function showToast(m){ setToast(m); setTimeout(()=>setToast(''),2500) }
+  useEffect(()=>{lsSet('lul_sleep',activeSleep)},[activeSleep]);
+  useEffect(()=>{lsSet('lul_feed',activeFeed)},[activeFeed]);
+
+  function showToast(m){setToast(m);setTimeout(()=>setToast(''),2500)}
 
   // Auth
   useEffect(()=>{
-    sb.auth.getSession().then(({data:{session}})=>{ setSession(session); setAuthReady(true) });
-    const {data:{subscription}} = sb.auth.onAuthStateChange((_,s)=>{ setSession(s); setAuthReady(true) });
-    return ()=>subscription.unsubscribe();
+    sb.auth.getSession().then(({data:{session}})=>{setSession(session);setAuthReady(true)});
+    const{data:{subscription}}=sb.auth.onAuthStateChange((_,s)=>{setSession(s);setAuthReady(true)});
+    return()=>subscription.unsubscribe();
   },[]);
 
   useEffect(()=>{
-    if(!session){ setProfiles([]); setLogs([]); return; }
+    if(!session){setProfiles([]);setLogs([]);return;}
     loadProfiles();
   },[session]);
 
   async function loadProfiles(){
-    const {data} = await sb.from('profiles').select('*').order('created_at');
-    if(!data) return;
+    const{data,error}=await sb.from('profiles').select('*').order('created_at');
+    if(error||!data)return;
     setProfiles(data);
-    const saved = lsGet('lul_pid',null);
-    const match = data.find(p=>p.id===saved);
-    setPid(match ? match.id : data[0]?.id || null);
+    const saved=lsGet('lul_pid',null);
+    const match=data.find(p=>p.id===saved);
+    const chosen=match?match.id:data[0]?.id||null;
+    setPid(chosen);
   }
 
   useEffect(()=>{
-    if(!pid) return;
+    if(!pid)return;
     lsSet('lul_pid',pid);
     loadLogs(pid);
   },[pid]);
 
   async function loadLogs(profileId){
-    const {data} = await sb.from('logs').select('*').eq('profile_id',profileId).order('start_time',{ascending:false}).limit(300);
-    setLogs(data||[]);
+    const{data,error}=await sb.from('logs').select('*').eq('profile_id',profileId).order('start_time',{ascending:false}).limit(500);
+    if(!error)setLogs(data||[]);
   }
 
-  // ── CRUD: Logs ──
+  // ── CRUD Logs ──
   async function saveLog(data){
     setSaving(true);
-    const now = Date.now();
-    const row = {
-      profile_id:  pid,
-      user_id:     session.user.id,
-      type:        data.type,
-      start_time:  data.start_time || now,
-      end_time:    data.end_time   || null,
-      duration:    data.duration   || null,
-      feed_type:   data.feed_type  || null,
-      side:        data.side       || null,
-      amount:      data.amount     || null,
-      diaper_type: data.diaper_type|| null,
-      quality:     data.quality    || null,
-      notes:       data.notes      || null,
+    const row={
+      profile_id:pid, user_id:session.user.id,
+      type:data.type,
+      start_time:data.start_time||Date.now(),
+      end_time:data.end_time||null,
+      duration:data.duration||null,
+      feed_type:data.feed_type||null,
+      side:data.side||null,
+      amount:data.amount||null,
+      diaper_type:data.diaper_type||null,
+      quality:data.quality||null,
+      notes:data.notes||null,
     };
-    const {data:saved,error} = await sb.from('logs').insert(row).select().single();
+    const{data:saved,error}=await sb.from('logs').insert(row).select().single();
     setSaving(false);
-    if(error){ showToast('Save failed'); return; }
-    setLogs(prev=>[saved,...prev]);
+    if(error){showToast('❌ Save failed — check connection');return;}
+    setLogs(prev=>[saved,...prev].sort((a,b)=>b.start_time-a.start_time));
     showToast(`${ENTRY_META[data.type]?.icon} Saved!`);
     closeSheet();
   }
 
-  async function updateLog(id, updates){
-    const {data:updated,error} = await sb.from('logs').update(updates).eq('id',id).select().single();
-    if(error){ showToast('Update failed'); return; }
-    setLogs(prev=>prev.map(l=>l.id===id ? updated : l));
+  async function updateLog(id,updates){
+    const{data:updated,error}=await sb.from('logs').update(updates).eq('id',id).select().single();
+    if(error){showToast('❌ Update failed');return;}
+    setLogs(prev=>prev.map(l=>l.id===id?updated:l));
     setEditingLog(null);
     showToast('✏️ Log updated');
   }
 
   async function deleteLog(id){
-    const {error} = await sb.from('logs').delete().eq('id',id);
-    if(error){ showToast('Delete failed'); return; }
+    const{error}=await sb.from('logs').delete().eq('id',id);
+    if(error){showToast('❌ Delete failed');return;}
     setLogs(prev=>prev.filter(l=>l.id!==id));
     setEditingLog(null);
     showToast('🗑️ Log deleted');
   }
 
-  // ── CRUD: Profiles ──
+  // ── CRUD Profiles ──
   async function addProfile(){
-    if(!newP.name.trim()) return;
-    const {data,error} = await sb.from('profiles').insert({
-      user_id: session.user.id,
-      name:    newP.name.trim(),
-      dob:     newP.dob || null,
-      color:   newP.color,
+    if(!newP.name.trim())return;
+    const{data,error}=await sb.from('profiles').insert({
+      user_id:session.user.id,name:newP.name.trim(),dob:newP.dob||null,color:newP.color,gender:newP.gender
     }).select().single();
-    if(error){ showToast('Failed to add baby'); return; }
+    if(error){showToast('❌ Failed to add baby');return;}
     setProfiles(prev=>[...prev,data]);
     setPid(data.id);
     setShowNewP(false);
-    setNewP({name:'',dob:'',color:'sky'});
+    setNewP({name:'',dob:'',color:'rose',gender:'neutral'});
     setTab('timeline');
     showToast(`🎉 ${data.name} added!`);
   }
 
-  async function updateProfile(id, updates){
-    const {data:updated,error} = await sb.from('profiles').update(updates).eq('id',id).select().single();
-    if(error){ showToast('Update failed'); return; }
-    setProfiles(prev=>prev.map(p=>p.id===id ? updated : p));
+  async function updateProfile(id,updates){
+    const{data:updated,error}=await sb.from('profiles').update(updates).eq('id',id).select().single();
+    if(error){showToast('❌ Update failed');return;}
+    setProfiles(prev=>prev.map(p=>p.id===id?updated:p));
     setEditingProfile(null);
     showToast('✏️ Profile updated');
   }
 
   async function deleteProfile(id){
-    // Logs are cascade-deleted by DB
-    const {error} = await sb.from('profiles').delete().eq('id',id);
-    if(error){ showToast('Delete failed'); return; }
-    const remaining = profiles.filter(p=>p.id!==id);
+    const{error}=await sb.from('profiles').delete().eq('id',id);
+    if(error){showToast('❌ Delete failed');return;}
+    const remaining=profiles.filter(p=>p.id!==id);
     setProfiles(remaining);
     setEditingProfile(null);
-    if(pid===id) setPid(remaining[0]?.id||null);
+    if(pid===id)setPid(remaining[0]?.id||null);
     showToast('🗑️ Baby removed');
   }
 
   // ── Timers ──
-  function closeSheet(){ setShowSheet(false); setSheetStep('pick'); setLogType(null) }
-  function startSleep(){ setActiveSleep({start:Date.now()}); closeSheet(); showToast('😴 Sleep timer started') }
+  function closeSheet(){setShowSheet(false);setSheetStep('pick');setLogType(null)}
+  function startSleep(){setActiveSleep({start:Date.now()});closeSheet();showToast('😴 Sleep timer started')}
   function stopSleep(){
-    if(!activeSleep) return;
-    const dur = Math.floor((Date.now()-activeSleep.start)/1000);
+    if(!activeSleep)return;
+    const dur=Math.floor((Date.now()-activeSleep.start)/1000);
     saveLog({type:'sleep',start_time:activeSleep.start,end_time:Date.now(),duration:dur,quality:'good',notes:''});
     setActiveSleep(null);
   }
-  function startFeed(ft,side){ setActiveFeed({start:Date.now(),feedType:ft,side}); closeSheet(); showToast('🍼 Feed timer started') }
+  function startFeed(ft,side){setActiveFeed({start:Date.now(),feedType:ft,side});closeSheet();showToast('🍼 Feed timer started')}
   function stopFeed(){
-    if(!activeFeed) return;
-    const dur = Math.floor((Date.now()-activeFeed.start)/1000);
+    if(!activeFeed)return;
+    const dur=Math.floor((Date.now()-activeFeed.start)/1000);
     saveLog({type:'feed',start_time:activeFeed.start,end_time:Date.now(),duration:dur,feed_type:activeFeed.feedType,side:activeFeed.side,amount:'',notes:''});
     setActiveFeed(null);
   }
 
-  async function signOut(){ await sb.auth.signOut(); setProfiles([]); setLogs([]); setPid(null) }
+  async function signOut(){await sb.auth.signOut();setProfiles([]);setLogs([]);setPid(null)}
 
   // ── Derived ──
-  const profile   = profiles.find(p=>p.id===pid);
-  const now2      = Date.now();
-  const todayStart= new Date(); todayStart.setHours(0,0,0,0);
-  const todayLogs = logs.filter(l=>l.start_time>=todayStart.getTime());
-  const lastFeed  = logs.find(l=>l.type==='feed');
-  const lastSleep = logs.find(l=>l.type==='sleep'&&l.end_time);
-  const todaySleepSecs = todayLogs.filter(l=>l.type==='sleep'&&l.duration).reduce((a,l)=>a+l.duration,0);
-  const todayDiapers   = todayLogs.filter(l=>l.type==='diaper').length;
-  const sinceLastFeed  = lastFeed ? Math.floor((now2-lastFeed.start_time)/60000) : null;
-  const awakeSince     = activeSleep ? null : (lastSleep ? Math.floor((now2-lastSleep.end_time)/60000) : null);
+  const now2=Date.now();
+  const todayStart=new Date();todayStart.setHours(0,0,0,0);
+  const todayLogs=logs.filter(l=>l.start_time>=todayStart.getTime());
+  const lastFeed=logs.find(l=>l.type==='feed');
+  const lastSleep=logs.find(l=>l.type==='sleep'&&l.end_time);
+  const todaySleepSecs=todayLogs.filter(l=>l.type==='sleep'&&l.duration).reduce((a,l)=>a+l.duration,0);
+  const todayDiapers=todayLogs.filter(l=>l.type==='diaper').length;
+  const todayFeeds=todayLogs.filter(l=>l.type==='feed').length;
+  const sinceLastFeed=lastFeed?Math.floor((now2-lastFeed.start_time)/60000):null;
+  const awakeSince=activeSleep?null:(lastSleep?Math.floor((now2-lastSleep.end_time)/60000):null);
 
-  const days      = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-  const sleepHrs  = days.map((_,i)=>{ const v=logs.filter(l=>l.type==='sleep'&&l.duration&&new Date(l.start_time).getDay()===(i+1)%7).reduce((a,l)=>a+l.duration/3600,0); return Math.round((v||(3+Math.sin(i*1.7)*1.5))*10)/10 });
-  const feedCounts= days.map((_,i)=>{ const c=logs.filter(l=>l.type==='feed'&&new Date(l.start_time).getDay()===(i+1)%7).length; return c||Math.round(3+Math.sin(i*2.3)*1.5) });
-  const maxSleep  = Math.max(...sleepHrs,1);
-  const maxFeed   = Math.max(...feedCounts,1);
+  const days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  const sleepHrs=days.map((_,i)=>{const v=logs.filter(l=>l.type==='sleep'&&l.duration&&new Date(l.start_time).getDay()===(i+1)%7).reduce((a,l)=>a+l.duration/3600,0);return Math.round((v||(3+Math.sin(i*1.7)*1.5))*10)/10});
+  const feedCounts=days.map((_,i)=>{const c=logs.filter(l=>l.type==='feed'&&new Date(l.start_time).getDay()===(i+1)%7).length;return c||Math.round(3+Math.sin(i*2.3)*1.5)});
+  const maxSleep=Math.max(...sleepHrs,1);
+  const maxFeed=Math.max(...feedCounts,1);
 
-  // ── Render entry ──
+  const pColor=COLORS.find(c=>c.id===(profile?.color||'rose'))||COLORS[0];
+
   function renderEntry(l){
-    const m = ENTRY_META[l.type]||ENTRY_META.note;
+    const m=ENTRY_META[l.type]||ENTRY_META.note;
     let detail='';
-    if(l.type==='feed')   detail=[l.feed_type,l.feed_type==='Breast'?l.side:null,l.duration?fmtDur(l.duration):null,l.amount?`${l.amount}ml`:null].filter(Boolean).join(' · ');
-    if(l.type==='sleep')  detail=[l.duration?fmtDur(l.duration):null,l.quality].filter(Boolean).join(' · ');
-    if(l.type==='diaper') detail=l.diaper_type;
-    if(l.type==='pump')   detail=[l.side,l.amount?`${l.amount}ml`:null].filter(Boolean).join(' · ');
-    if(l.type==='note')   detail=l.notes;
+    if(l.type==='feed')detail=[l.feed_type,l.feed_type==='Breast'?l.side:null,l.duration?fmtDur(l.duration):null,l.amount?`${l.amount}ml`:null].filter(Boolean).join(' · ');
+    if(l.type==='sleep')detail=[l.duration?fmtDur(l.duration):null,l.quality].filter(Boolean).join(' · ');
+    if(l.type==='diaper')detail=l.diaper_type;
+    if(l.type==='pump')detail=[l.side,l.amount?`${l.amount}ml`:null].filter(Boolean).join(' · ');
+    if(l.type==='note')detail=l.notes;
     return(
       <div key={l.id} className="entry">
-        <div className="entry-icon-wrap" style={{background:m.color}} onClick={()=>setEditingLog(l)}>
+        <div className="entry-icon-wrap" style={{background:m.color}}>
           <span style={{fontSize:18}}>{m.icon}</span>
         </div>
-        <div className="entry-card" onClick={()=>setEditingLog(l)}>
+        <div className="entry-card">
           <div className="entry-row">
             <span className="entry-title">{m.label}</span>
             <span className="entry-time">{fmtTime(l.start_time)}</span>
@@ -748,8 +978,8 @@ function App() {
           <div className="entry-badge-row">
             <span className="entry-badge" style={{background:m.color,color:m.tc}}>{timeAgo(l.start_time)}</span>
             <div className="entry-actions">
-              <button className="entry-action-btn" onClick={e=>{e.stopPropagation();setEditingLog(l)}}>Edit</button>
-              <button className="entry-action-btn del" onClick={e=>{e.stopPropagation();deleteLog(l.id)}}>Delete</button>
+              <button className="icon-action-btn" onClick={()=>setEditingLog(l)} title="Edit"><IconPencil/></button>
+              <button className="icon-action-btn del" onClick={()=>deleteLog(l.id)} title="Delete"><IconTrash/></button>
             </div>
           </div>
         </div>
@@ -757,28 +987,23 @@ function App() {
     );
   }
 
-  // ── User avatar ──
-  const userAvatar = session?.user?.user_metadata?.avatar_url;
-  const userInitial = (session?.user?.user_metadata?.full_name || session?.user?.email || 'U').charAt(0).toUpperCase();
+  const userAvatar=session?.user?.user_metadata?.avatar_url;
+  const userInitial=(session?.user?.user_metadata?.full_name||session?.user?.email||'U').charAt(0).toUpperCase();
 
-  // ── Gates ──
-  if(!authReady) return(
+  // Gates
+  if(!authReady)return(
     <div className="loading-screen">
-      <div className="loading-logo">lullaby<span style={{color:'#C4705A',fontStyle:'italic'}}>.</span></div>
-      <div style={{width:20,height:20,border:'2px solid #F2D4CC',borderTopColor:'#C4705A',borderRadius:'50%',animation:'spin .6s linear infinite'}}/>
+      <div className="loading-logo">lullaby<span style={{color:'var(--accent)',fontStyle:'italic'}}>.</span></div>
+      <div style={{width:20,height:20,border:'2px solid var(--accent-bg)',borderTopColor:'var(--accent)',borderRadius:'50%',animation:'spin .6s linear infinite'}}/>
     </div>
   );
-  if(!session) return <AuthScreen/>;
+  if(!session)return <AuthScreen/>;
 
   return(
     <div className="app">
-      {toast && <div className="toast">{toast}</div>}
-
-      {/* Edit log sheet */}
-      {editingLog && <EditLogSheet log={editingLog} onSave={updateLog} onDelete={deleteLog} onClose={()=>setEditingLog(null)}/>}
-
-      {/* Edit profile sheet */}
-      {editingProfile && <EditProfileSheet profile={editingProfile} onSave={updateProfile} onDelete={deleteProfile} onClose={()=>setEditingProfile(null)}/>}
+      {toast&&<div className="toast">{toast}</div>}
+      {editingLog&&<EditLogSheet log={editingLog} onSave={updateLog} onDelete={deleteLog} onClose={()=>setEditingLog(null)}/>}
+      {editingProfile&&<EditProfileSheet profile={editingProfile} onSave={updateProfile} onDelete={deleteProfile} onClose={()=>setEditingProfile(null)}/>}
 
       {/* Header */}
       <div className="header">
@@ -788,40 +1013,37 @@ function App() {
             {profiles.map(p=>{
               const c=COLORS.find(x=>x.id===p.color)||COLORS[0];
               return(
-                <div key={p.id} className="profile-chip" onClick={()=>{setPid(p.id);setTab('timeline')}} style={p.id===pid?{borderColor:c.dark}:{}}>
+                <div key={p.id} className={`profile-chip ${p.id===pid?'active-chip':''}`} onClick={()=>{setPid(p.id);setTab('timeline')}}>
                   <div className="profile-avatar" style={{background:c.bg,color:c.text}}>{p.name.charAt(0).toUpperCase()}</div>
                   {p.id===pid&&<span className="profile-name">{p.name}</span>}
                 </div>
               );
             })}
             <button className="add-profile-btn" onClick={()=>setTab('profiles')} title="Manage profiles">+</button>
-            {/* User avatar / sign out */}
-            <div
-              style={{width:32,height:32,borderRadius:'50%',overflow:'hidden',cursor:'pointer',border:'1.5px solid var(--border)',display:'flex',alignItems:'center',justifyContent:'center',background:'var(--sand)',fontSize:13,fontWeight:600,color:'var(--muted)'}}
-              onClick={signOut}
-              title={`Sign out (${session.user.email})`}
-            >
-              {userAvatar ? <img src={userAvatar} style={{width:'100%',height:'100%',objectFit:'cover'}} alt=""/> : userInitial}
-            </div>
+            {/* Settings/avatar — opens settings, does NOT sign out */}
+            <button className="user-avatar-btn" onClick={()=>setTab('settings')} title="Settings">
+              {userAvatar?<img src={userAvatar} alt=""/>:userInitial}
+            </button>
           </div>
         </div>
         {profile&&<div style={{fontSize:12,color:'var(--muted)',marginLeft:2,marginTop:2}}>{getBabyAge(profile.dob)}</div>}
       </div>
 
-      {/* Insights */}
+      {/* Insights strip */}
       {tab==='timeline'&&profiles.length>0&&(
         <div className="insights-strip">
           {sinceLastFeed!==null&&<div className={`insight-card ${sinceLastFeed>180?'alert':'ok'}`}><div className="insight-label">Last feed</div><div className="insight-value">{sinceLastFeed}m ago</div><div className="insight-sub">{sinceLastFeed>180?'Overdue!':sinceLastFeed>120?'Feed soon!':'On track'}</div></div>}
           {awakeSince!==null&&<div className={`insight-card ${awakeSince>90?'alert':'ok'}`}><div className="insight-label">Awake</div><div className="insight-value">{awakeSince>=60?`${Math.floor(awakeSince/60)}h ${awakeSince%60}m`:`${awakeSince}m`}</div><div className="insight-sub">{awakeSince>90?'Nap time?':'Going well'}</div></div>}
           {activeSleep&&<div className="insight-card ok"><div className="insight-label">Sleeping</div><div className="insight-value">{fmtDur(sleepSecs)}</div><div className="insight-sub">In progress</div></div>}
           <div className="insight-card"><div className="insight-label">Sleep today</div><div className="insight-value">{todaySleepSecs>0?(todaySleepSecs/3600).toFixed(1)+'h':'—'}</div><div className="insight-sub">total</div></div>
+          <div className="insight-card"><div className="insight-label">Feeds today</div><div className="insight-value">{todayFeeds}</div><div className="insight-sub">times</div></div>
           <div className="insight-card"><div className="insight-label">Diapers</div><div className="insight-value">{todayDiapers}</div><div className="insight-sub">today</div></div>
         </div>
       )}
 
-      {/* Tabs */}
+      {/* Tabs — 4 tabs now including Feed */}
       <div className="tabs">
-        {[['timeline','Timeline'],['analytics','Analytics'],['profiles','Profiles']].map(([id,label])=>(
+        {[['timeline','Timeline'],['feed','Feed'],['analytics','Analytics'],['profiles','Profiles']].map(([id,label])=>(
           <button key={id} className={`tab ${tab===id?'active':''}`} onClick={()=>setTab(id)}>{label}</button>
         ))}
       </div>
@@ -842,18 +1064,49 @@ function App() {
         </div>
       )}
 
+      {/* Feed tab — feeds only */}
+      {tab==='feed'&&(
+        <div className="timeline">
+          {activeFeed&&(
+            <div className="active-banner feed"><div className="active-info"><span className="active-title">🍼 {activeFeed.feedType}{activeFeed.feedType==='Breast'?' · '+activeFeed.side:''}</span><span className="active-timer">{fmtDur(feedSecs)}</span></div><button className="stop-btn" onClick={stopFeed}>Stop</button></div>
+          )}
+          {/* Summary */}
+          <div style={{display:'flex',gap:10,margin:'0 0 16px',flexWrap:'wrap'}}>
+            <div className="insight-card" style={{flex:1,minWidth:100}}>
+              <div className="insight-label">Feeds today</div>
+              <div className="insight-value">{todayFeeds}</div>
+            </div>
+            {sinceLastFeed!==null&&<div className={`insight-card ${sinceLastFeed>180?'alert':'ok'}`} style={{flex:1,minWidth:100}}>
+              <div className="insight-label">Last feed</div>
+              <div className="insight-value">{sinceLastFeed}m ago</div>
+              <div className="insight-sub">{sinceLastFeed>180?'Overdue!':sinceLastFeed>120?'Feed soon!':'On track'}</div>
+            </div>}
+          </div>
+          {logs.filter(l=>l.type==='feed').length===0&&<div className="empty"><div className="empty-icon">🍼</div><div className="empty-text">No feed logs yet</div></div>}
+          {groupByDay(logs.filter(l=>l.type==='feed')).map(([day,items])=>(
+            <div key={day}><div className="day-label">{day}</div>{items.map(renderEntry)}</div>
+          ))}
+        </div>
+      )}
+
       {/* Analytics */}
       {tab==='analytics'&&(
         <div className="analytics">
           <div className="section-header">This Week</div>
           <div className="stat-grid">
             <div className="stat-card"><div className="stat-num">{todayDiapers}</div><div className="stat-label">Diapers today</div></div>
-            <div className="stat-card"><div className="stat-num">{todayLogs.filter(l=>l.type==='feed').length}</div><div className="stat-label">Feeds today</div></div>
+            <div className="stat-card"><div className="stat-num">{todayFeeds}</div><div className="stat-label">Feeds today</div></div>
             <div className="stat-card"><div className="stat-num">{todaySleepSecs>0?(todaySleepSecs/3600).toFixed(1)+'h':'—'}</div><div className="stat-label">Sleep today</div></div>
             <div className="stat-card"><div className="stat-num">{logs.length}</div><div className="stat-label">Total logs</div></div>
           </div>
-          <div className="bar-chart"><div className="bar-chart-title">Sleep hours per day</div><div className="bars">{sleepHrs.map((h,i)=><div className="bar-wrap" key={i}><span className="bar-val">{h}h</span><div className="bar" style={{height:`${(h/maxSleep)*60}px`,background:'#DDD4F0'}}/><span className="bar-day">{days[i]}</span></div>)}</div></div>
-          <div className="bar-chart"><div className="bar-chart-title">Feeds per day</div><div className="bars">{feedCounts.map((c,i)=><div className="bar-wrap" key={i}><span className="bar-val">{c}</span><div className="bar" style={{height:`${(c/maxFeed)*60}px`,background:'#F2D4CC'}}/><span className="bar-day">{days[i]}</span></div>)}</div></div>
+          <div className="bar-chart">
+            <div className="bar-chart-title">Sleep hours per day</div>
+            <div className="bars">{sleepHrs.map((h,i)=><div className="bar-wrap" key={i}><span className="bar-val">{h}h</span><div className="bar" style={{height:`${(h/maxSleep)*60}px`,background:'var(--lav)'}}/><span className="bar-day">{days[i]}</span></div>)}</div>
+          </div>
+          <div className="bar-chart">
+            <div className="bar-chart-title">Feeds per day</div>
+            <div className="bars">{feedCounts.map((c,i)=><div className="bar-wrap" key={i}><span className="bar-val">{c}</span><div className="bar" style={{height:`${(c/maxFeed)*60}px`,background:'var(--accent-bg)'}}/><span className="bar-day">{days[i]}</span></div>)}</div>
+          </div>
         </div>
       )}
 
@@ -863,11 +1116,15 @@ function App() {
           <div className="section-header">Profiles</div>
           {profiles.map(p=>{
             const c=COLORS.find(x=>x.id===p.color)||COLORS[0];
+            const genderEmoji=p.gender==='girl'?'👧':p.gender==='boy'?'👦':'⭐';
             return(
               <div key={p.id} className={`profile-card ${p.id===pid?'current':''}`}>
                 <div className="profile-info" onClick={()=>{setPid(p.id);setTab('timeline')}}>
                   <div className="profile-big-avatar" style={{background:c.bg,color:c.text}}>{p.name.charAt(0).toUpperCase()}</div>
-                  <div className="profile-details"><div className="name">{p.name}</div><div className="age">{getBabyAge(p.dob)}</div></div>
+                  <div className="profile-details">
+                    <div className="p-name">{genderEmoji} {p.name}</div>
+                    <div className="p-age">{getBabyAge(p.dob)}</div>
+                  </div>
                 </div>
                 <div className="profile-card-actions">
                   {p.id===pid&&<span style={{fontSize:12,fontWeight:600,color:c.dark,marginRight:4}}>Active</span>}
@@ -880,7 +1137,16 @@ function App() {
             <div style={{background:'var(--card)',border:'1px solid var(--border)',borderRadius:16,padding:20,marginBottom:16}}>
               <div className="field"><label className="field-label">Baby name</label><input className="text-input" placeholder="e.g. Ayla" value={newP.name} onChange={e=>setNewP(p=>({...p,name:e.target.value}))}/></div>
               <div className="field"><label className="field-label">Date of birth</label><input className="text-input" type="date" value={newP.dob} onChange={e=>setNewP(p=>({...p,dob:e.target.value}))}/></div>
-              <div className="field"><label className="field-label">Colour</label><div className="color-picker">{COLORS.map(c=><div key={c.id} className={`color-dot ${newP.color===c.id?'selected':''}`} style={{background:c.bg}} onClick={()=>setNewP(p=>({...p,color:c.id}))}>{newP.color===c.id?'✓':''}</div>)}</div></div>
+              <div className="field"><label className="field-label">Gender</label>
+                <div className="gender-row">
+                  {[['girl','👧 Girl'],['boy','👦 Boy'],['neutral','⭐ Neutral']].map(([g,l])=>(
+                    <button key={g} className={`gender-chip ${g} ${newP.gender===g?'active':''}`} onClick={()=>setNewP(p=>({...p,gender:g}))}>{l}</button>
+                  ))}
+                </div>
+              </div>
+              <div className="field"><label className="field-label">Colour</label>
+                <div className="color-picker">{COLORS.map(c=><div key={c.id} className={`color-dot ${newP.color===c.id?'selected':''}`} style={{background:c.bg}} onClick={()=>setNewP(p=>({...p,color:c.id}))}>{newP.color===c.id?'✓':''}</div>)}</div>
+              </div>
               <div style={{display:'flex',gap:8}}><button className="submit-btn" style={{flex:1}} onClick={addProfile}>Add Baby</button><button className="submit-btn secondary" style={{flex:1}} onClick={()=>setShowNewP(false)}>Cancel</button></div>
             </div>
           ):(
@@ -889,18 +1155,16 @@ function App() {
               <span style={{fontSize:14,fontWeight:500,color:'var(--muted)'}}>Add another baby</span>
             </div>
           )}
-          <div style={{marginTop:24,paddingTop:24,borderTop:'1px solid var(--border)'}}>
-            <div style={{fontSize:12,color:'var(--muted)',marginBottom:8}}>
-              {session?.user?.user_metadata?.full_name && <span style={{fontWeight:500,marginRight:6}}>{session.user.user_metadata.full_name}</span>}
-              {session?.user?.email}
-            </div>
-            <button className="submit-btn secondary" onClick={signOut}>Sign out</button>
-          </div>
         </div>
       )}
 
+      {/* Settings */}
+      {tab==='settings'&&(
+        <SettingsPage session={session} darkMode={darkMode} setDarkMode={setDarkMode} onSignOut={signOut}/>
+      )}
+
       {/* FAB */}
-      {tab!=='profiles'&&profiles.length>0&&(
+      {(tab==='timeline'||tab==='feed')&&profiles.length>0&&(
         <button className="fab" onClick={()=>{setShowSheet(true);setSheetStep('pick')}}>
           <span style={{fontSize:20,lineHeight:1}}>+</span> Log
         </button>
