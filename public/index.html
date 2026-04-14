@@ -3943,36 +3943,41 @@ function App() {
     return _loadProfiles.apply(this, arguments);
   } // Load logs — with lock to prevent double firing
   function _loadProfiles() {
-    _loadProfiles = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee11() {
-      var _2;
-      var _yield$sb$from$select5, data, error, saved, match;
-      return _regenerator().w(function (_context11) {
-        while (1) switch (_context11.n) {
-          case 0:
-            _context11.n = 1;
-            return sb.from('profiles').select('*').order('created_at');
-          case 1:
-            _yield$sb$from$select5 = _context11.v;
-            data = _yield$sb$from$select5.data;
-            error = _yield$sb$from$select5.error;
-            if (!error) {
-              _context11.n = 2;
-              break;
-            }
-            console.error('profiles error', error);
-            return _context11.a(2);
-          case 2:
-            setProfiles(data || []);
-            saved = lsGet('lul_pid', null);
-            match = (data || []).find(function (p) {
-              return p.id === saved;
-            });
-            setPid(match ? match.id : ((_2 = (data || [])[0]) === null || _2 === void 0 ? void 0 : _2.id) || null);
-          case 3:
-            return _context11.a(2);
-        }
-      }, _callee11);
-    }));
+    _loadProfiles = function() {
+      var userEmail = session && session.user ? session.user.email : '';
+      var userId2   = session && session.user ? session.user.id   : '';
+      // Build partner filter: match by user_id (if set) or by email
+      var partnerFilter = userId2
+        ? 'partner_user_id.eq.' + userId2 + ',partner_email.eq.' + userEmail
+        : 'partner_email.eq.' + userEmail;
+      return Promise.all([
+        sb.from('profiles').select('*').order('created_at'),
+        userEmail
+          ? sb.from('profile_partners').select('profile_id').or(partnerFilter)
+          : Promise.resolve({ data: [] })
+      ]).then(function(results) {
+        var ownProfiles    = results[0].data || [];
+        var partnerRecords = results[1].data || [];
+        if (!partnerRecords.length) return { all: ownProfiles };
+        var sharedIds = partnerRecords.map(function(r) { return r.profile_id; });
+        // Deduplicate — remove IDs already in ownProfiles
+        var newIds = sharedIds.filter(function(id) {
+          return !ownProfiles.find(function(p) { return p.id === id; });
+        });
+        if (!newIds.length) return { all: ownProfiles };
+        return sb.from('profiles').select('*').in('id', newIds).then(function(res) {
+          return { all: ownProfiles.concat(res.data || []) };
+        });
+      }).then(function(result) {
+        var allProfiles = result.all;
+        setProfiles(allProfiles);
+        var saved = lsGet('lul_pid', null);
+        var match = allProfiles.find(function(p) { return p.id === saved; });
+        setPid(match ? match.id : (allProfiles[0] ? allProfiles[0].id : null));
+      }).catch(function(err) {
+        console.error('profiles error', err);
+      });
+    };
     return _loadProfiles.apply(this, arguments);
   }
   var loadingRef = useRef(false);
