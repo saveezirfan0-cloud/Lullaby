@@ -3583,7 +3583,8 @@ function AnalyticsTab(_ref16) {
     todayLogs = _ref16.todayLogs,
     fullFeeds = _ref16.fullFeeds,
     todaySleepSecs = _ref16.todaySleepSecs,
-    todayDiapers = _ref16.todayDiapers;
+    todayDiapers = _ref16.todayDiapers,
+    profile = _ref16.profile;
   // Get last 7 days properly
   var days7 = useMemo(function () {
     var result = [];
@@ -4908,7 +4909,8 @@ function App() {
     todayLogs: todayLogs,
     fullFeeds: fullFeeds,
     todaySleepSecs: todaySleepSecs,
-    todayDiapers: todayDiapers
+    todayDiapers: todayDiapers,
+    profile: profile
   }), tab === 'partners' && /*#__PURE__*/React.createElement(PartnerTab, {
     session: session,
     pid: pid,
