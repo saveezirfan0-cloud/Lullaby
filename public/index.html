@@ -258,6 +258,134 @@ body{background:var(--bg);color:var(--ink)}
 @keyframes spin{to{transform:rotate(360deg)}}
 .loading-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;background:var(--bg)}
 .loading-logo{font-family:'DM Serif Display',serif;font-size:32px;color:var(--ink)}
+
+/* ═══════ NEW FEATURES CSS v3.0 ═══════ */
+.quick-log-bar{display:flex;gap:8px;padding:0 20px 12px;overflow-x:auto;scrollbar-width:none}
+.quick-log-bar::-webkit-scrollbar{display:none}
+.quick-btn{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:4px;padding:11px 16px;border-radius:14px;border:none;cursor:pointer;transition:all .15s;min-width:64px}
+.quick-btn:active{transform:scale(.94)}
+.quick-btn-icon{font-size:22px;line-height:1}
+.quick-btn-label{font-size:10px;font-weight:600}
+.smart-alert{margin:0 20px 10px;padding:11px 14px;border-radius:13px;display:flex;align-items:flex-start;gap:10px}
+.smart-alert.warn{background:#FFF3E0;border:1px solid #FF9800}
+.smart-alert.info{background:var(--lav);border:1px solid var(--lav-deep)}
+.smart-alert.danger{background:var(--danger-bg);border:1px solid var(--danger)}
+.smart-alert.growth{background:#E8F5E9;border:1px solid #4CAF50}
+.smart-alert-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.smart-alert-text{flex:1;font-size:12px;line-height:1.5;color:var(--ink);font-weight:500}
+.smart-alert-dismiss{font-size:16px;color:var(--subtle);cursor:pointer;flex-shrink:0;background:none;border:none;padding:0;line-height:1}
+.insight-card.predict{background:var(--ink);border-color:var(--ink)}
+.insight-card.predict .insight-label{color:rgba(255,255,255,.6)}
+.insight-card.predict .insight-value{color:#fff}
+.insight-card.predict .insight-sub{color:rgba(255,255,255,.5)}
+.milestones-page{padding:0 20px 120px}
+.milestone-filter{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:8px;margin-bottom:12px}
+.milestone-filter::-webkit-scrollbar{display:none}
+.milestone-filter-btn{flex-shrink:0;padding:5px 12px;border-radius:100px;border:1.5px solid var(--border);background:transparent;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;cursor:pointer;color:var(--muted);transition:all .12s}
+.milestone-filter-btn.active{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.milestone-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.milestone-card{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:14px;cursor:pointer;transition:all .15s;position:relative;text-align:left}
+.milestone-card.achieved{border-color:var(--accent2);background:var(--success-bg)}
+.milestone-icon-big{font-size:30px;margin-bottom:8px;display:block}
+.milestone-label{font-size:12px;font-weight:600;color:var(--ink);line-height:1.3}
+.milestone-age-badge{display:inline-block;font-size:9px;padding:2px 7px;border-radius:100px;background:var(--bg2);color:var(--muted);font-weight:600;margin-top:5px}
+.milestone-check{position:absolute;top:9px;right:9px;width:22px;height:22px;border-radius:50%;background:var(--accent2);display:flex;align-items:center;justify-content:center;font-size:12px;color:white;font-weight:700}
+.milestone-date-text{font-size:9px;color:var(--accent2-text);font-weight:600;margin-top:4px;display:block}
+.milestone-cat{font-size:9px;color:var(--subtle);margin-top:2px;font-weight:500;text-transform:uppercase;letter-spacing:.3px}
+.growth-page{padding:0 20px 120px}
+.growth-stat-row{display:flex;gap:9px;margin-bottom:14px}
+.growth-stat{flex:1;background:var(--card);border:1px solid var(--border);border-radius:13px;padding:12px;text-align:center}
+.growth-stat-num{font-size:22px;font-weight:700;color:var(--ink)}
+.growth-stat-unit{font-size:11px;color:var(--muted);font-weight:500}
+.growth-entry-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:12px}
+.growth-entry-row:last-child{border-bottom:none}
+.growth-badge{font-size:10px;font-weight:500;padding:2px 8px;border-radius:100px;background:var(--bg2);color:var(--muted)}
+.vaccine-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.vaccine-row:last-child{border-bottom:none}
+.vaccine-check{width:22px;height:22px;border-radius:6px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:all .15s}
+.vaccine-check.done{background:var(--accent2);border-color:var(--accent2);color:white}
+.vaccine-name{font-size:12px;font-weight:600;color:var(--ink);flex:1}
+.vaccine-age{font-size:10px;color:var(--muted);margin-top:1px}
+.routine-page{padding:0 20px 120px}
+.routine-item{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:9px;cursor:pointer;transition:all .15s}
+.routine-item.expanded{border-color:var(--accent)}
+.routine-item-header{display:flex;align-items:center;justify-content:space-between}
+.routine-item-left{display:flex;align-items:center;gap:12px}
+.routine-icon{font-size:28px;flex-shrink:0}
+.routine-title{font-size:14px;font-weight:600;color:var(--ink)}
+.routine-desc{font-size:11px;color:var(--muted);margin-top:2px}
+.routine-tag{display:inline-block;font-size:9px;padding:2px 8px;border-radius:100px;font-weight:600;margin-top:5px}
+.routine-steps{margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+.routine-step{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px dashed var(--border)}
+.routine-step:last-child{border-bottom:none}
+.routine-step-time{font-size:11px;color:var(--accent);font-weight:700;min-width:50px;flex-shrink:0;margin-top:1px}
+.routine-step-icon{font-size:15px;flex-shrink:0;margin-top:1px}
+.routine-step-label{font-size:12px;color:var(--ink);font-weight:500;flex:1;line-height:1.4}
+.routine-step-note{font-size:10px;color:var(--muted);margin-top:2px}
+.weekly-report{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:9px;box-shadow:var(--shadow)}
+.weekly-report-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:12px}
+.score-row{display:flex;gap:9px;margin-bottom:14px}
+.score-circle{width:66px;height:66px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0}
+.score-num{font-size:20px;font-weight:700;line-height:1}
+.score-label-sm{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
+.score-details{flex:1}
+.score-title{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:3px}
+.score-sub{font-size:11px;color:var(--muted);line-height:1.5}
+.pattern-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border);font-size:12px;color:var(--ink)}
+.pattern-row:last-child{border-bottom:none}
+.pattern-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.ai-prompts{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.ai-prompt-chip{padding:7px 12px;border-radius:100px;border:1.5px solid var(--ai-deep);background:var(--ai);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;cursor:pointer;color:var(--ai-text);transition:all .12s}
+.ai-prompt-chip:hover{background:var(--ai-deep);color:white}
+.night-dim{position:fixed;inset:0;background:rgba(0,0,0,0.2);pointer-events:none;z-index:1}
+
+
+/* Voice log button */
+.voice-btn{width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .2s;flex-shrink:0}
+.voice-btn.idle{background:var(--bg2);border:1.5px solid var(--border)}
+.voice-btn.listening{background:#F44336;border:1.5px solid #C62828;animation:pulse 1s infinite}
+.voice-btn.listening::after{content:'';position:absolute;width:44px;height:44px;border-radius:50%;border:2px solid #F44336;animation:voiceRipple 1s ease infinite}
+@keyframes voiceRipple{0%{transform:scale(1);opacity:.8}100%{transform:scale(1.6);opacity:0}}
+
+/* Export button */
+.export-row{display:flex;gap:8px;margin-bottom:10px}
+.export-card{flex:1;background:var(--card);border:1px solid var(--border);border-radius:13px;padding:14px;text-align:center;cursor:pointer;transition:all .15s}
+.export-card:hover{border-color:var(--accent)}
+.export-card-icon{font-size:28px;margin-bottom:6px}
+.export-card-label{font-size:12px;font-weight:600;color:var(--ink)}
+.export-card-sub{font-size:10px;color:var(--muted);margin-top:2px}
+
+/* Smart empty states */
+.smart-empty{text-align:center;padding:40px 20px 60px;color:var(--muted)}
+.smart-empty-icon{font-size:48px;margin-bottom:12px;opacity:.7}
+.smart-empty-title{font-size:16px;font-weight:600;color:var(--ink);margin-bottom:6px}
+.smart-empty-sub{font-size:13px;line-height:1.6;max-width:260px;margin:0 auto 16px}
+.smart-empty-hint{font-size:11px;background:var(--bg2);border-radius:10px;padding:10px 14px;display:inline-block;color:var(--muted)}
+
+/* Micro insights inline */
+.entry-micro-insight{font-size:10px;color:var(--accent);font-weight:600;margin-top:4px;display:flex;align-items:center;gap:4px}
+.entry-micro-insight.good{color:var(--accent2-text)}
+.entry-micro-insight.warn{color:#E65100}
+
+/* Today Dashboard status badge */
+.baby-status{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:100px;font-size:11px;font-weight:600;margin:0 20px 10px}
+.baby-status.sleepy{background:#EDE7F6;color:#4527A0}
+.baby-status.calm{background:#E8F5E9;color:#1B5E20}
+.baby-status.fussy{background:#FFF3E0;color:#E65100}
+.baby-status.hungry{background:#FCE4EC;color:#880E4F}
+
+/* Alert sensitivity control */
+.sens-bar{display:flex;gap:5px}
+.sens-btn{flex:1;padding:7px 4px;border-radius:10px;border:1.5px solid var(--border);background:transparent;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;cursor:pointer;color:var(--muted);text-align:center;transition:all .12s}
+.sens-btn.active{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+/* Color-coded entry icon wraps */
+.entry-icon-wrap.type-feed{background:#E8F5E9}
+.entry-icon-wrap.type-sleep{background:#EDE7F6}
+.entry-icon-wrap.type-diaper{background:#FFFDE7}
+.entry-icon-wrap.type-pump{background:#E3F2FD}
+.entry-icon-wrap.type-note{background:#FFF3E0}
+
 </style>
 </head>
 <body>
@@ -387,6 +515,89 @@ var ENTRY_META = {
     tc: '#6A4010'
   }
 };
+
+// ── Milestones Data
+var MILESTONES_DATA = [
+  {id:'smile',label:'First smile',age:'4-8 wks',icon:'😊',cat:'Social'},
+  {id:'focus',label:'Tracks faces',age:'4-6 wks',icon:'👀',cat:'Vision'},
+  {id:'coo',label:'Cooing sounds',age:'6-8 wks',icon:'🗣',cat:'Language'},
+  {id:'headlift',label:'Lifts head (tummy)',age:'1-2 mo',icon:'💪',cat:'Motor'},
+  {id:'laugh',label:'First laugh',age:'3-4 mo',icon:'😂',cat:'Social'},
+  {id:'rollfront',label:'Rolls front to back',age:'3-5 mo',icon:'🔄',cat:'Motor'},
+  {id:'rollback',label:'Rolls back to front',age:'4-6 mo',icon:'↩',cat:'Motor'},
+  {id:'solids',label:'First solid food',age:'4-6 mo',icon:'🥄',cat:'Feeding'},
+  {id:'sit',label:'Sits without support',age:'6-8 mo',icon:'🪑',cat:'Motor'},
+  {id:'name',label:'Responds to name',age:'6-8 mo',icon:'🎯',cat:'Language'},
+  {id:'babble',label:'Babbling (mamama)',age:'6-9 mo',icon:'💬',cat:'Language'},
+  {id:'crawl',label:'Crawling',age:'7-10 mo',icon:'💨',cat:'Motor'},
+  {id:'wave',label:'Waves bye-bye',age:'8-10 mo',icon:'👋',cat:'Social'},
+  {id:'pinch',label:'Pincer grasp',age:'9-12 mo',icon:'🤌',cat:'Fine Motor'},
+  {id:'stand',label:'Pulls to stand',age:'9-12 mo',icon:'🏋',cat:'Motor'},
+  {id:'word1',label:'First word',age:'10-14 mo',icon:'💬',cat:'Language'},
+  {id:'walk',label:'First steps',age:'11-14 mo',icon:'👟',cat:'Motor'},
+  {id:'clap',label:'Claps hands',age:'9-12 mo',icon:'👏',cat:'Social'},
+  {id:'point',label:'Points at objects',age:'9-12 mo',icon:'☝',cat:'Social'},
+];
+
+// ── Vaccine Data
+var VACCINE_DATA = [
+  {id:'hepb_birth',name:'Hepatitis B (dose 1)',age:'Birth'},
+  {id:'hepb_1m',name:'Hepatitis B (dose 2)',age:'1-2 months'},
+  {id:'dtap_2m',name:'DTaP (Diphtheria, Tetanus, Pertussis)',age:'2 months'},
+  {id:'ipv_2m',name:'IPV (Polio)',age:'2 months'},
+  {id:'hib_2m',name:'Hib',age:'2 months'},
+  {id:'pcv_2m',name:'PCV (Pneumococcal)',age:'2 months'},
+  {id:'rotavirus_2m',name:'Rotavirus',age:'2 months'},
+  {id:'dtap_4m',name:'DTaP + IPV + Hib + PCV',age:'4 months'},
+  {id:'dtap_6m',name:'DTaP + IPV + Hib + PCV + Hep B',age:'6 months'},
+  {id:'flu_6m',name:'Influenza (annual)',age:'6+ months'},
+  {id:'mmr_12m',name:'MMR (Measles, Mumps, Rubella)',age:'12-15 months'},
+  {id:'varicella_12m',name:'Varicella (Chickenpox)',age:'12-15 months'},
+  {id:'hepa_12m',name:'Hepatitis A (dose 1)',age:'12-23 months'},
+];
+
+// ── Routine Data
+var ROUTINES_DATA = [
+  {id:'newborn',icon:'🌙',title:'Newborn Rhythm (0-6 weeks)',desc:'Eat-wake-sleep, every 2-3 hrs',tag:'0-6 weeks',tagBg:'#F3E5F5',tagColor:'#6A1B9A',
+   steps:[
+    {time:'On demand',icon:'🍼',label:'Feed',note:'8-12 feeds/day'},
+    {time:'5-10 min',icon:'😊',label:'Awake & alert time',note:'Eye contact, gentle talking'},
+    {time:'~45 min',icon:'😴',label:'Watch for sleep cues',note:'Yawning, eye rubbing — put down drowsy'},
+    {time:'Repeat',icon:'🔁',label:'Every 2-3 hrs',note:'No schedule yet — follow baby'},
+  ]},
+  {id:'3month',icon:'☀',title:'3-Month Gentle Structure',desc:'Longer wake windows, nap pattern emerging',tag:'2-4 months',tagBg:'#E3F2FD',tagColor:'#1565C0',
+   steps:[
+    {time:'7:00 AM',icon:'🌅',label:'Wake & first feed',note:''},
+    {time:'8:30 AM',icon:'😴',label:'First nap',note:'After ~90 min awake window'},
+    {time:'10:30 AM',icon:'🍼',label:'Feed + play',note:'Tummy time, sensory toys'},
+    {time:'12:00 PM',icon:'😴',label:'Midday nap',note:'Usually longest nap'},
+    {time:'2:00 PM',icon:'🍼',label:'Feed + outing',note:'Walk, errands'},
+    {time:'3:30 PM',icon:'😴',label:'Catnap',note:'30-45 min prevents overtiredness'},
+    {time:'6:30 PM',icon:'🛁',label:'Bedtime routine',note:'Bath, massage, feed, sleep'},
+    {time:'7:00 PM',icon:'🌙',label:'Bedtime',note:'Consistent time is key'},
+  ]},
+  {id:'6month',icon:'🌟',title:'6-Month Two-Nap Schedule',desc:'Two solid naps, longer night sleep',tag:'5-8 months',tagBg:'#E8F5E9',tagColor:'#1B5E20',
+   steps:[
+    {time:'7:00 AM',icon:'🌅',label:'Wake & feed',note:''},
+    {time:'9:00 AM',icon:'😴',label:'Morning nap',note:'1-1.5 hrs, after ~2 hr awake window'},
+    {time:'10:30 AM',icon:'🍼',label:'Feed + solids',note:'One new food at a time'},
+    {time:'12:30 PM',icon:'😴',label:'Afternoon nap',note:'1-2 hours'},
+    {time:'2:30 PM',icon:'🍼',label:'Feed + play',note:'Active floor time, books'},
+    {time:'5:00 PM',icon:'🍼',label:'Evening feed',note:'+ solids if started'},
+    {time:'6:30 PM',icon:'🛁',label:'Bath time',note:''},
+    {time:'7:00 PM',icon:'🌙',label:'Bedtime',note:'Keep it consistent'},
+  ]},
+  {id:'sleep_train',icon:'🏆',title:'Gentle Sleep Shaping',desc:'Foster independent sleep without harsh CIO',tag:'4+ months',tagBg:'#FFF8E1',tagColor:'#F57F17',
+   steps:[
+    {time:'Step 1',icon:'⏰',label:'Consistent bedtime',note:'Same time +/- 15 min every night'},
+    {time:'Step 2',icon:'📋',label:'Pre-sleep routine',note:'Bath + book + feed + sleep, 20-30 min total'},
+    {time:'Step 3',icon:'😴',label:'Drowsy but awake',note:'Put down before fully asleep'},
+    {time:'Step 4',icon:'💡',label:'Dim room + white noise',note:'65-70 dB, blackout curtains'},
+    {time:'Step 5',icon:'⏳',label:'Timed check-ins',note:'3 min, comfort, 5 min, 10 min'},
+    {time:'Tip',icon:'📊',label:'Track naps in Lullaby',note:'Overtired = harder nights'},
+  ]},
+];
+
 
 // ── Helpers ──────────────────────────────────────────────────────
 var fmtDur = function fmtDur(s) {
@@ -1895,7 +2106,7 @@ function AIChatSheet(_ref1) {
     onClick: onClose
   }, "\u2190 Back"), /*#__PURE__*/React.createElement("div", {
     className: "sheet-title"
-  }, "\uD83D\uDCA1 AI Baby Advisor"), /*#__PURE__*/React.createElement("div", {
+  }, "\uD83D\uDCA1 AI Baby Advisor"), messages.length<=1&&React.createElement('div',{className:'ai-prompts'},  ['Why is baby fussy?','Analyze today sleep','Feeding on track?','Growth spurt signs?','Bedtime routine tips'].map(function(q){return React.createElement('button',{key:q,className:'ai-prompt-chip',onClick:function(){setInput(q);}},q);})), /*#__PURE__*/React.createElement("div", {
     className: "ai-messages"
   }, messages.map(function (m, i) {
     return /*#__PURE__*/React.createElement("div", {
@@ -2447,7 +2658,16 @@ function NotificationsTab(_ref11) {
         value: h
       }, h, "h");
     }))));
-  }), /*#__PURE__*/React.createElement("div", {
+  }), React.createElement('div', {style:{background:'var(--card)',border:'1px solid var(--border)',borderRadius:14,padding:14,marginTop:4,marginBottom:8}},
+    React.createElement('div',{style:{fontWeight:600,fontSize:13,marginBottom:8,color:'var(--ink)'}},'Alert Sensitivity'),
+    React.createElement('div',{style:{fontSize:11,color:'var(--muted)',marginBottom:10,lineHeight:1.5}},'Controls how early smart alerts fire. High = more warnings. Low = only critical alerts.'),
+    React.createElement('div',{className:'sens-bar'},
+      [['high','High ??'],['medium','Medium'],['low','Low ??']].map(function(s){
+        return React.createElement('button',{key:s[0],className:'sens-btn'+(notifSettings.alertSens===s[0]?' active':''),
+          onClick:function(){update('alertSens',s[0]);}},s[1]);
+      })
+    )
+  ), /*#__PURE__*/React.createElement("div", {
     style: {
       background: 'var(--card)',
       border: '1px solid var(--border)',
@@ -2929,12 +3149,374 @@ function SettingsPage(_ref15) {
       fontSize: 11,
       color: 'var(--subtle)'
     }
-  }, "Lullaby v2.0 \xB7 Made with love by ", /*#__PURE__*/React.createElement("span", {
+  }, "Lullaby v3.0 \xB7 Made with love by ", /*#__PURE__*/React.createElement("span", {
     style: {
       color: 'var(--accent)',
       fontWeight: 600
     }
   }, "Skofi")));
+}
+
+// ── Quick Log Bar ─────────────────────────────────────────────────
+function QuickLogBar(props) {
+  var onFeedStart=props.onFeedStart,onSleepStart=props.onSleepStart,
+      onDiaper=props.onDiaper,onNote=props.onNote,
+      activeSleep=props.activeSleep,activeFeed=props.activeFeed,
+      onStopSleep=props.onStopSleep,onStopFeed=props.onStopFeed;
+  return React.createElement('div',{className:'quick-log-bar'},
+    React.createElement('button',{className:'quick-btn',
+      style:{background:activeFeed?'#4CAF50':'#E8F5E9'},
+      onClick:activeFeed?onStopFeed:onFeedStart},
+      React.createElement('span',{className:'quick-btn-icon'},activeFeed?'\u23F9':'\uD83C\uDF7C'),
+      React.createElement('span',{className:'quick-btn-label',style:{color:activeFeed?'#fff':'#2E7D32'}},activeFeed?'Stop Feed':'Start Feed')
+    ),
+    React.createElement('button',{className:'quick-btn',
+      style:{background:activeSleep?'#7C4DFF':'#EDE7F6'},
+      onClick:activeSleep?onStopSleep:onSleepStart},
+      React.createElement('span',{className:'quick-btn-icon'},activeSleep?'\u23F9':'\uD83D\uDE34'),
+      React.createElement('span',{className:'quick-btn-label',style:{color:activeSleep?'#fff':'#4527A0'}},activeSleep?'Wake Up':'Sleep')
+    ),
+    React.createElement('button',{className:'quick-btn',
+      style:{background:'#FFFDE7'},
+      onClick:onDiaper},
+      React.createElement('span',{className:'quick-btn-icon'},'\uD83D\uDCA6'),
+      React.createElement('span',{className:'quick-btn-label',style:{color:'#F57F17'}},'Diaper')
+    ),
+    React.createElement('button',{className:'quick-btn',
+      style:{background:'#FCE4EC'},
+      onClick:onNote},
+      React.createElement('span',{className:'quick-btn-icon'},'\uD83D\uDCDD'),
+      React.createElement('span',{className:'quick-btn-label',style:{color:'#880E4F'}},'Note')
+    )
+  );
+}
+
+// ── Smart Alerts ──────────────────────────────────────────────────
+function SmartAlerts(props) {
+  var logs=props.logs,alertSensitivity=props.alertSensitivity;
+  var _sa=useState({}),_sa2=_slicedToArray(_sa,2),dismissed=_sa2[0],setDismissed=_sa2[1];
+  var alerts=useMemo(function(){
+    if(!logs||!logs.length) return [];
+    var now=Date.now(),result=[];
+    var recentFeeds=logs.filter(function(l){return l.type==='feed'&&!l.is_partial;});
+    var lastFeed=recentFeeds[0];
+    var recentSleeps=logs.filter(function(l){return l.type==='sleep'&&l.duration;});
+    var avgFeedMins=180;
+    if(recentFeeds.length>=3){
+      var iv=[];
+      for(var i=0;i<Math.min(recentFeeds.length-1,4);i++) iv.push((recentFeeds[i].start_time-recentFeeds[i+1].start_time)/60000);
+      avgFeedMins=iv.reduce(function(a,b){return a+b;},0)/iv.length;
+    }
+    if(lastFeed){
+      var minsSince=(now-lastFeed.start_time)/60000;
+      var sens=alertSensitivity||'medium';
+      var thresh=sens==='high'?avgFeedMins*0.9:sens==='low'?avgFeedMins*1.3:avgFeedMins*1.1;
+      if(minsSince>thresh&&minsSince>120) result.push({id:'feed_long',type:'warn',icon:'\uD83C\uDF7C',
+        text:'No feed for '+Math.round(minsSince)+' mins (usual avg: '+Math.round(avgFeedMins)+' mins)'});
+    }
+    var last3=recentSleeps.slice(0,3);
+    var shortN=last3.filter(function(n){return n.duration<1800;}).length;
+    if(shortN>=2) result.push({id:'short_naps',type:'warn',icon:'\uD83D\uDE2B',
+      text:'Last '+shortN+' naps were short (< 30 min) \u2014 overtired risk building'});
+    var twoHrs=now-7200000;
+    var cCount=logs.filter(function(l){return l.type==='feed'&&l.start_time>twoHrs;}).length;
+    if(cCount>=3) result.push({id:'cluster',type:'growth',icon:'\uD83D\uDCC8',
+      text:'Cluster feeding detected ('+cCount+' feeds in 2 hrs) \u2014 possible growth spurt!'});
+    var ts=new Date();ts.setHours(0,0,0,0);
+    var tdDiapers=logs.filter(function(l){return l.type==='diaper'&&l.start_time>=ts.getTime();}).length;
+    if(new Date().getHours()>=14&&tdDiapers<3) result.push({id:'diapers_low',type:'info',icon:'\u26A0\uFE0F',
+      text:'Only '+tdDiapers+' diapers today \u2014 lower than usual, worth watching'});
+    return result;
+  },[logs,alertSensitivity]);
+  var visible=alerts.filter(function(a){return !dismissed[a.id];});
+  if(!visible.length) return null;
+  return React.createElement(React.Fragment,null,visible.map(function(alert){
+    return React.createElement('div',{key:alert.id,className:'smart-alert '+alert.type},
+      React.createElement('span',{className:'smart-alert-icon'},alert.icon),
+      React.createElement('span',{className:'smart-alert-text'},alert.text),
+      React.createElement('button',{className:'smart-alert-dismiss',onClick:function(){
+        setDismissed(function(d){var n=Object.assign({},d);n[alert.id]=true;return n;});
+      }},'\u00D7')
+    );
+  }));
+}
+
+// ── Milestones Tab ────────────────────────────────────────────────
+function MilestonesTab(props) {
+  var pid=props.pid,profile=props.profile;
+  var sk='lul_milestones_'+(pid||'def');
+  var _ms=useState(function(){return lsGet(sk,{});}),_ms2=_slicedToArray(_ms,2),achieved=_ms2[0],setAchieved=_ms2[1];
+  var _mf=useState('All'),_mf2=_slicedToArray(_mf,2),filter=_mf2[0],setFilter=_mf2[1];
+  function toggle(id){
+    var now=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+    var u=Object.assign({},achieved);
+    if(u[id]) delete u[id]; else u[id]=now;
+    setAchieved(u);lsSet(sk,u);
+  }
+  var cats=['All'].concat(Array.from(new Set(MILESTONES_DATA.map(function(m){return m.cat;}))));
+  var filtered=filter==='All'?MILESTONES_DATA:MILESTONES_DATA.filter(function(m){return m.cat===filter;});
+  var achCount=Object.keys(achieved).length;
+  return React.createElement('div',{className:'milestones-page'},
+    React.createElement('div',{className:'section-header',style:{marginTop:4,marginBottom:6}},'\uD83C\uDFC5 Milestones'),
+    React.createElement('div',{style:{background:'var(--card)',border:'1px solid var(--border)',borderRadius:13,padding:'12px 14px',marginBottom:14,display:'flex',alignItems:'center',gap:12}},
+      React.createElement('div',{style:{fontSize:28}},'\uD83C\uDFC5'),
+      React.createElement('div',null,
+        React.createElement('div',{style:{fontSize:16,fontWeight:700,color:'var(--ink)'}},achCount+' / '+MILESTONES_DATA.length+' milestones'),
+        React.createElement('div',{style:{fontSize:11,color:'var(--muted)',marginTop:2}},
+          profile?'Tracking for '+profile.name+(profile.dob?' \u00B7 '+getBabyAge(profile.dob):''):'Tap any milestone to mark achieved')
+      )
+    ),
+    React.createElement('div',{className:'milestone-filter'},
+      cats.map(function(cat){
+        return React.createElement('button',{key:cat,className:'milestone-filter-btn'+(filter===cat?' active':''),onClick:function(){setFilter(cat);}},cat);
+      })
+    ),
+    React.createElement('div',{className:'milestone-grid'},
+      filtered.map(function(ms){
+        var done=!!achieved[ms.id];
+        return React.createElement('div',{key:ms.id,className:'milestone-card'+(done?' achieved':''),onClick:function(){toggle(ms.id);}},
+          done&&React.createElement('div',{className:'milestone-check'},'\u2713'),
+          React.createElement('span',{className:'milestone-icon-big'},ms.icon),
+          React.createElement('div',{className:'milestone-label'},ms.label),
+          React.createElement('div',{className:'milestone-cat'},ms.cat),
+          React.createElement('span',{className:'milestone-age-badge'},ms.age),
+          done&&React.createElement('span',{className:'milestone-date-text'},'\u2713 '+achieved[ms.id])
+        );
+      })
+    )
+  );
+}
+
+// ── Growth & Health Tab ───────────────────────────────────────────
+function GrowthTab(props) {
+  var pid=props.pid,profile=props.profile;
+  var sk='lul_growth_'+(pid||'def');
+  var vk='lul_vaccines_'+(pid||'def');
+  var _gr=useState(function(){return lsGet(sk,[]);}),_gr2=_slicedToArray(_gr,2),entries=_gr2[0],setEntries=_gr2[1];
+  var _vc=useState(function(){return lsGet(vk,{});}),_vc2=_slicedToArray(_vc,2),vaccines=_vc2[0],setVaccines=_vc2[1];
+  var _st=useState('growth'),_st2=_slicedToArray(_st,2),subTab=_st2[0],setSubTab=_st2[1];
+  var _nw=useState(''),_nw2=_slicedToArray(_nw,2),newW=_nw2[0],setNewW=_nw2[1];
+  var _nh=useState(''),_nh2=_slicedToArray(_nh,2),newH=_nh2[0],setNewH=_nh2[1];
+  function addEntry(){
+    if(!newW&&!newH) return;
+    var e={date:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}),ts:Date.now(),weight:newW?parseFloat(newW):null,height:newH?parseFloat(newH):null};
+    var u=[e].concat(entries);setEntries(u);lsSet(sk,u);setNewW('');setNewH('');
+  }
+  function toggleVax(id){
+    var u=Object.assign({},vaccines);
+    if(u[id]) delete u[id]; else u[id]=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+    setVaccines(u);lsSet(vk,u);
+  }
+  var last=entries[0];
+  return React.createElement('div',{className:'growth-page'},
+    React.createElement('div',{className:'section-header',style:{marginTop:4,marginBottom:8}},'\uD83D\uDCCF Health & Growth'),
+    React.createElement('div',{style:{display:'flex',gap:7,marginBottom:14}},
+      [['growth','\uD83D\uDCCF Growth'],['vaccines','\uD83D\uDC89 Vaccines']].map(function(t){
+        return React.createElement('button',{key:t[0],className:'chip-btn'+(subTab===t[0]?' active':''),onClick:function(){setSubTab(t[0]);}},t[1]);
+      })
+    ),
+    subTab==='growth'&&React.createElement(React.Fragment,null,
+      last&&React.createElement('div',{className:'growth-stat-row'},
+        React.createElement('div',{className:'growth-stat'},React.createElement('div',{className:'growth-stat-num'},last.weight||'\u2014'),React.createElement('div',{className:'growth-stat-unit'},'kg (latest)')),
+        React.createElement('div',{className:'growth-stat'},React.createElement('div',{className:'growth-stat-num'},last.height||'\u2014'),React.createElement('div',{className:'growth-stat-unit'},'cm (latest)'))
+      ),
+      React.createElement('div',{style:{background:'var(--card)',border:'1px solid var(--border)',borderRadius:13,padding:14,marginBottom:12}},
+        React.createElement('div',{style:{fontSize:12,fontWeight:600,color:'var(--ink)',marginBottom:10}},'Add measurement'),
+        React.createElement('div',{style:{display:'flex',gap:8,marginBottom:10}},
+          React.createElement('div',{style:{flex:1}},
+            React.createElement('div',{style:{fontSize:10,color:'var(--muted)',marginBottom:4,fontWeight:600,textTransform:'uppercase',letterSpacing:'.4px'}},'Weight (kg)'),
+            React.createElement('input',{className:'text-input',type:'number',step:'0.1',placeholder:'5.2',value:newW,onChange:function(e){setNewW(e.target.value);}})
+          ),
+          React.createElement('div',{style:{flex:1}},
+            React.createElement('div',{style:{fontSize:10,color:'var(--muted)',marginBottom:4,fontWeight:600,textTransform:'uppercase',letterSpacing:'.4px'}},'Height (cm)'),
+            React.createElement('input',{className:'text-input',type:'number',step:'0.5',placeholder:'56.0',value:newH,onChange:function(e){setNewH(e.target.value);}})
+          )
+        ),
+        React.createElement('button',{className:'submit-btn',style:{marginTop:0},onClick:addEntry},'Save measurement')
+      ),
+      entries.length>0&&React.createElement('div',{style:{background:'var(--card)',border:'1px solid var(--border)',borderRadius:13,padding:14}},
+        React.createElement('div',{style:{fontSize:12,fontWeight:600,color:'var(--ink)',marginBottom:8}},'History'),
+        entries.map(function(e,i){
+          return React.createElement('div',{key:i,className:'growth-entry-row'},
+            React.createElement('div',null,
+              React.createElement('div',{style:{fontSize:12,fontWeight:600,color:'var(--ink)'}},(e.weight?e.weight+' kg':'')+(e.weight&&e.height?' \u00B7 ':'')+(e.height?e.height+' cm':'')),
+              React.createElement('div',{style:{fontSize:10,color:'var(--muted)',marginTop:1}},e.date)
+            ),
+            i===0&&React.createElement('span',{className:'growth-badge'},'Latest')
+          );
+        })
+      ),
+      !entries.length&&React.createElement('div',{className:'empty'},
+        React.createElement('div',{className:'empty-icon'},'\uD83D\uDCCF'),
+        React.createElement('div',{className:'empty-text'},'Add your first measurement above')
+      )
+    ),
+    subTab==='vaccines'&&React.createElement('div',{style:{background:'var(--card)',border:'1px solid var(--border)',borderRadius:13,padding:14}},
+      React.createElement('div',{style:{fontSize:11,color:'var(--muted)',marginBottom:12,lineHeight:1.6}},'Tap any row to mark as done. Always follow your pediatrician\u2019s guidance.'),
+      VACCINE_DATA.map(function(v){
+        var done=!!vaccines[v.id];
+        return React.createElement('div',{key:v.id,className:'vaccine-row'},
+          React.createElement('div',{className:'vaccine-check'+(done?' done':''),onClick:function(){toggleVax(v.id);}},done?'\u2713':''),
+          React.createElement('div',{style:{flex:1}},
+            React.createElement('div',{className:'vaccine-name',style:{textDecoration:done?'line-through':'none',opacity:done?0.6:1}},v.name),
+            React.createElement('div',{className:'vaccine-age'},v.age+(vaccines[v.id]?' \u00B7 \u2713 '+vaccines[v.id]:''))
+          )
+        );
+      })
+    )
+  );
+}
+
+// ── Routine Tab ───────────────────────────────────────────────────
+function RoutineTab() {
+  var _rt=useState(null),_rt2=_slicedToArray(_rt,2),expanded=_rt2[0],setExpanded=_rt2[1];
+  return React.createElement('div',{className:'routine-page'},
+    React.createElement('div',{className:'section-header',style:{marginTop:4}},'\uD83D\uDCCB Routine Builder'),
+    React.createElement('div',{style:{background:'var(--ai)',border:'1px solid var(--ai-deep)',borderRadius:13,padding:'11px 14px',marginBottom:14,fontSize:12,color:'var(--ai-text)',lineHeight:1.6}},
+      '\uD83D\uDCA1 Evidence-based routine templates. Tap to expand and use alongside your Lullaby logs.'),
+    ROUTINES_DATA.map(function(r){
+      var isExp=expanded===r.id;
+      return React.createElement('div',{key:r.id,className:'routine-item'+(isExp?' expanded':''),onClick:function(){setExpanded(isExp?null:r.id);}},
+        React.createElement('div',{className:'routine-item-header'},
+          React.createElement('div',{className:'routine-item-left'},
+            React.createElement('div',{className:'routine-icon'},r.icon),
+            React.createElement('div',null,
+              React.createElement('div',{className:'routine-title'},r.title),
+              React.createElement('div',{className:'routine-desc'},r.desc),
+              React.createElement('span',{className:'routine-tag',style:{background:r.tagBg,color:r.tagColor}},r.tag)
+            )
+          ),
+          React.createElement('div',{style:{fontSize:18,color:'var(--muted)',marginLeft:8,transition:'transform .2s',transform:isExp?'rotate(180deg)':'none'}},'\u2304')
+        ),
+        isExp&&React.createElement('div',{className:'routine-steps'},
+          r.steps.map(function(step,i){
+            return React.createElement('div',{key:i,className:'routine-step'},
+              React.createElement('div',{className:'routine-step-time'},step.time),
+              React.createElement('div',{className:'routine-step-icon'},step.icon),
+              React.createElement('div',{className:'routine-step-label'},
+                React.createElement('div',null,step.label),
+                step.note&&React.createElement('div',{className:'routine-step-note'},step.note)
+              )
+            );
+          })
+        )
+      );
+    })
+  );
+}
+
+// ── Voice Log Button ─────────────────────────────────────────────
+function VoiceLogBtn(props) {
+  var onResult = props.onResult;
+  var _vl = useState('idle'), _vl2 = _slicedToArray(_vl, 2), state = _vl2[0], setState = _vl2[1];
+  var recRef = useRef(null);
+
+  function startListening() {
+    var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) { alert('Voice input not supported on this browser. Try Chrome.'); return; }
+    var rec = new SR();
+    rec.lang = 'en-US';
+    rec.interimResults = false;
+    rec.maxAlternatives = 1;
+    rec.onstart = function() { setState('listening'); };
+    rec.onend = function() { setState('idle'); };
+    rec.onerror = function() { setState('idle'); };
+    rec.onresult = function(e) {
+      var transcript = e.results[0][0].transcript.toLowerCase();
+      onResult(transcript);
+      setState('idle');
+    };
+    recRef.current = rec;
+    rec.start();
+  }
+  function stopListening() {
+    if (recRef.current) { recRef.current.stop(); }
+    setState('idle');
+  }
+
+  return React.createElement('button', {
+    className: 'voice-btn ' + state,
+    title: state === 'listening' ? 'Tap to stop' : 'Voice log',
+    onClick: state === 'listening' ? stopListening : startListening,
+    style: { position: 'relative' }
+  }, state === 'listening' ? '\uD83D\uDD34' : '\uD83C\uDFA4');
+}
+
+// ── Export Report ────────────────────────────────────────────────
+function ExportReport(props) {
+  var logs = props.logs, profile = props.profile;
+
+  function buildTextReport() {
+    var lines = [];
+    var name = profile ? profile.name : 'Baby';
+    var age = profile && profile.dob ? getBabyAge(profile.dob) : '';
+    lines.push('LULLABY HEALTH REPORT');
+    lines.push('Generated: ' + new Date().toLocaleDateString('en-GB', {weekday:'long',year:'numeric',month:'long',day:'numeric'}));
+    lines.push('Baby: ' + name + (age ? ' (' + age + ')' : ''));
+    lines.push('');
+    lines.push('─── LAST 7 DAYS SUMMARY ───────────────────────────');
+    var now = Date.now();
+    for (var i = 0; i < 7; i++) {
+      var d = new Date(); d.setDate(d.getDate() - i); d.setHours(0,0,0,0);
+      var dayEnd = d.getTime() + 86400000;
+      var dayLogs = logs.filter(function(l) { return l.start_time >= d.getTime() && l.start_time < dayEnd; });
+      var label = i === 0 ? 'Today' : i === 1 ? 'Yesterday' : d.toLocaleDateString('en-GB', {weekday:'short', month:'short', day:'numeric'});
+      var feeds = dayLogs.filter(function(l){ return l.type==='feed'&&!l.is_partial; }).length;
+      var sleepH = (dayLogs.filter(function(l){ return l.type==='sleep'&&l.duration; }).reduce(function(a,l){ return a+l.duration; }, 0)/3600).toFixed(1);
+      var diapers = dayLogs.filter(function(l){ return l.type==='diaper'; }).length;
+      lines.push(label + ': ' + feeds + ' feeds | ' + sleepH + 'h sleep | ' + diapers + ' diapers');
+    }
+    lines.push('');
+    lines.push('─── RECENT LOGS (last 50) ─────────────────────────');
+    logs.slice(0, 50).forEach(function(l) {
+      var meta = {feed:'Feed',sleep:'Sleep',diaper:'Diaper',pump:'Pump',note:'Note'};
+      var detail = '';
+      if (l.type==='feed') detail = [(l.feed_type||''), l.side, l.duration?fmtDur(l.duration):null, l.amount?l.amount+'ml':null].filter(Boolean).join(' ');
+      if (l.type==='sleep') detail = (l.duration?fmtDur(l.duration):'-') + (l.quality?' ('+l.quality+')':'');
+      if (l.type==='diaper') detail = l.diaper_type||'';
+      if (l.type==='note') detail = l.notes||'';
+      lines.push(new Date(l.start_time).toLocaleString('en-GB', {month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}) + '  ' + (meta[l.type]||l.type) + (detail?' — '+detail:''));
+    });
+    lines.push('');
+    lines.push('─────────────────────────────────────────────────');
+    lines.push('Generated by Lullaby Baby Tracker · lullaby.skofi.tech');
+    return lines.join('\n');
+  }
+
+  function downloadText() {
+    var text = buildTextReport();
+    var blob = new Blob([text], { type: 'text/plain' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = (profile ? profile.name + '_' : '') + 'lullaby_report_' + new Date().toISOString().slice(0,10) + '.txt';
+    a.click(); URL.revokeObjectURL(url);
+  }
+
+  function copyToClipboard() {
+    var text = buildTextReport();
+    navigator.clipboard.writeText(text).then(function() {
+      alert('Report copied to clipboard! Paste into any app to share with your pediatrician.');
+    }).catch(function() {
+      alert('Could not copy. Please use Download instead.');
+    });
+  }
+
+  return React.createElement(React.Fragment, null,
+    React.createElement('div', { style: { fontSize: 12, color: 'var(--muted)', marginBottom: 10, lineHeight: 1.6 } },
+      'Generate a plain-text health summary to share with your pediatrician or save for records.'),
+    React.createElement('div', { className: 'export-row' },
+      React.createElement('div', { className: 'export-card', onClick: downloadText },
+        React.createElement('div', { className: 'export-card-icon' }, '\uD83D\uDCE5'),
+        React.createElement('div', { className: 'export-card-label' }, 'Download'),
+        React.createElement('div', { className: 'export-card-sub' }, '.txt file')
+      ),
+      React.createElement('div', { className: 'export-card', onClick: copyToClipboard },
+        React.createElement('div', { className: 'export-card-icon' }, '\uD83D\uDCCB'),
+        React.createElement('div', { className: 'export-card-label' }, 'Copy'),
+        React.createElement('div', { className: 'export-card-sub' }, 'Paste anywhere')
+      )
+    )
+  );
 }
 
 // ── ANALYTICS (fixed) ──────────────────────────────────────────────
@@ -2996,11 +3578,30 @@ function AnalyticsTab(_ref16) {
   var hasFeedData = days7.some(function (d) {
     return d.feedC > 0;
   });
+  var sleepScore=useMemo(function(){
+    var dw=days7.filter(function(d){return d.sleepH>0;}).length;
+    if(!dw) return 0;
+    var avg=days7.reduce(function(a,d){return a+d.sleepH;},0)/(dw||1);
+    return Math.round((dw/7*0.5+Math.min(1,avg/14)*0.5)*100);
+  },[days7]);
+  var feedScore=useMemo(function(){
+    var df=days7.filter(function(d){return d.feedC>0;}).length;
+    if(!df) return 0;
+    var avg=days7.reduce(function(a,d){return a+d.feedC;},0)/(df||1);
+    return Math.round(Math.min(1,df/7*0.5+Math.min(1,avg/8)*0.5)*100);
+  },[days7]);
+  var bestDay=useMemo(function(){
+    return days7.reduce(function(a,d){return d.sleepH>a.sleepH?d:a;},{sleepH:0,label:'—'}).label;
+  },[days7]);
+
   return /*#__PURE__*/React.createElement("div", {
     className: "analytics"
   }, /*#__PURE__*/React.createElement("div", {
     className: "section-header"
-  }, "This Week"), /*#__PURE__*/React.createElement("div", {
+  }, "This Week"), React.createElement('div', {style:{background:'var(--card)',border:'1px solid var(--border)',borderRadius:14,padding:14,marginBottom:9,boxShadow:'var(--shadow)'}},
+    React.createElement('div', {style:{fontSize:13,fontWeight:700,color:'var(--ink)',marginBottom:8}}, '?? Export for Pediatrician'),
+    React.createElement(ExportReport, {logs:logs, profile:profile})
+  ), /*#__PURE__*/React.createElement("div", {
     className: "stat-grid"
   }, /*#__PURE__*/React.createElement("div", {
     className: "stat-card"
@@ -3212,6 +3813,8 @@ function App() {
     _useState172 = _slicedToArray(_useState171, 2),
     notifSettings = _useState172[0],
     setNotifSettings = _useState172[1];
+  var _useState_as = useState(function(){return lsGet('lul_alert_sens','medium');}),_useState_as2=_slicedToArray(_useState_as,2),alertSensitivity=_useState_as2[0],setAlertSensitivity=_useState_as2[1];
+  var _useState_nd = useState(function(){return lsGet('lul_night_dim',false);}),_useState_nd2=_slicedToArray(_useState_nd,2),nightDim=_useState_nd2[0],setNightDim=_useState_nd2[1];
   var sleepSecs = useTimer(activeSleep === null || activeSleep === void 0 ? void 0 : activeSleep.start);
   var feedSecs = useTimer(activeFeed === null || activeFeed === void 0 ? void 0 : activeFeed.start);
 
@@ -3792,6 +4395,24 @@ function App() {
       return p.id === pid;
     });
   }, [profiles, pid]);
+  var predictive = useMemo(function(){
+    var rFeeds=logs.filter(function(l){return l.type==='feed'&&!l.is_partial;});
+    var avgFeedMins=180;
+    if(rFeeds.length>=3){
+      var iv=[];
+      for(var i=0;i<Math.min(rFeeds.length-1,4);i++) iv.push((rFeeds[i].start_time-rFeeds[i+1].start_time)/60000);
+      avgFeedMins=Math.round(iv.reduce(function(a,b){return a+b;},0)/iv.length);
+    }
+    var lastFeedTs=rFeeds[0]?rFeeds[0].start_time:null;
+    var sinceLastFeedMins=lastFeedTs?Math.floor((Date.now()-lastFeedTs)/60000):null;
+    var nextFeedInMins=lastFeedTs?Math.max(0,avgFeedMins-(sinceLastFeedMins||0)):null;
+    var ts2=new Date();ts2.setHours(0,0,0,0);
+    var todaySleepHrs=logs.filter(function(l){return l.type==='sleep'&&l.duration&&l.start_time>=ts2.getTime();}).reduce(function(a,l){return a+l.duration;},0)/3600;
+    var sleepDebt=Math.max(0,Math.round((14-todaySleepHrs)*10)/10);
+    var twoHrs=Date.now()-7200000;
+    var clusterCount=logs.filter(function(l){return l.type==='feed'&&l.start_time>twoHrs;}).length;
+    return {nextFeedInMins:nextFeedInMins,sleepDebt:sleepDebt,clusterCount:clusterCount,avgFeedMins:avgFeedMins};
+  },[logs]);
   var now2 = Date.now();
   var todayStart = useMemo(function () {
     var d = new Date();
@@ -3850,10 +4471,7 @@ function App() {
       key: l.id,
       className: "entry"
     }, /*#__PURE__*/React.createElement("div", {
-      className: "entry-icon-wrap",
-      style: {
-        background: m.color
-      }
+      className: "entry-icon-wrap type-"+l.type,
     }, /*#__PURE__*/React.createElement("span", {
       style: {
         fontSize: 17
@@ -3870,7 +4488,11 @@ function App() {
       className: "entry-time"
     }, fmtTime(l.start_time))), detail && /*#__PURE__*/React.createElement("div", {
       className: "entry-detail"
-    }, detail), /*#__PURE__*/React.createElement("div", {
+    }, detail), l.type==='sleep'&&l.duration&&React.createElement('div',{
+      className:'entry-micro-insight '+(l.duration>=3600?'good':l.duration<900?'warn':'')
+    }, l.duration>=5400?'?? Long nap! '+fmtDur(l.duration):l.duration<900?'⚠️ Short sleep — '+fmtDur(l.duration):'?? '+fmtDur(l.duration)+' sleep'), l.type==='feed'&&!l.is_partial&&l.duration&&React.createElement('div',{
+      className:'entry-micro-insight '+(l.duration>=600?'good':l.duration<300?'warn':'')
+    }, l.duration>=600?'?? Good feed ('+fmtDur(l.duration)+')':l.duration<300?'⚡ Short feed — '+fmtDur(l.duration):''), /*#__PURE__*/React.createElement("div", {
       className: "entry-badge-row"
     }, /*#__PURE__*/React.createElement("span", {
       className: "entry-badge",
@@ -3973,7 +4595,24 @@ function App() {
     onClick: function onClick() {
       return setTab('profiles');
     }
-  }, "+"), /*#__PURE__*/React.createElement("button", {
+  }, "+"), React.createElement(VoiceLogBtn, {onResult: function(transcript) {
+      var lower = transcript.toLowerCase();
+      if (lower.includes('feed') || lower.includes('bottle') || lower.includes('breast') || lower.includes('milk')) {
+        saveLog({type:'feed',start_time:Date.now(),feed_type:'Breast',side:'Left',notes:'Voice: '+transcript,is_partial:false});
+        showToast('?? Feed logged via voice!');
+      } else if (lower.includes('sleep') || lower.includes('nap') || lower.includes('sleeping')) {
+        activeSleep ? stopSleep() : (startSleep(), showToast('?? Sleep timer started!'));
+      } else if (lower.includes('diaper') || lower.includes('pee') || lower.includes('poop') || lower.includes('change')) {
+        var dt = lower.includes('poop') || lower.includes('dirty') ? 'Poop' : lower.includes('both') ? 'Both' : 'Pee';
+        saveLog({type:'diaper',start_time:Date.now(),diaper_type:dt,notes:'Voice: '+transcript});
+        showToast('?? Diaper logged via voice!');
+      } else if (lower.includes('wake') || lower.includes('awake') || lower.includes('woke')) {
+        if (activeSleep) { stopSleep(); showToast('☀️ Sleep stopped!'); }
+      } else {
+        saveLog({type:'note',start_time:Date.now(),notes:'Voice: '+transcript});
+        showToast('?? Note logged via voice!');
+      }
+    }}), /*#__PURE__*/React.createElement("button", {
     className: "ai-btn",
     onClick: function onClick() {
       return setShowAI(true);
@@ -3988,14 +4627,19 @@ function App() {
   }, userMeta.avatar_url ? /*#__PURE__*/React.createElement("img", {
     src: userMeta.avatar_url,
     alt: ""
-  }) : (userMeta.full_name || (session === null || session === void 0 || (_session$user7 = session.user) === null || _session$user7 === void 0 ? void 0 : _session$user7.email) || 'U').charAt(0).toUpperCase()))), profile && /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 11,
-      color: 'var(--muted)',
-      marginLeft: 2,
-      marginTop: 2
-    }
-  }, getBabyAge(profile.dob))), (tab === 'timeline' || tab === 'feed') && profiles.length > 0 && /*#__PURE__*/React.createElement("div", {
+  }) : (userMeta.full_name || (session === null || session === void 0 || (_session$user7 = session.user) === null || _session$user7 === void 0 ? void 0 : _session$user7.email) || 'U').charAt(0).toUpperCase()))), profile && React.createElement(React.Fragment, null,
+    /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 11,
+        color: 'var(--muted)',
+        marginLeft: 2,
+        marginTop: 2
+      }
+    }, getBabyAge(profile.dob)),
+    (tab==='timeline'||tab==='feed') && React.createElement('div', {
+      className: 'baby-status ' + (predictive.clusterCount>=3?'hungry':predictive.sleepDebt>2?'sleepy':sinceLastFeed!==null&&sinceLastFeed>180?'hungry':awakeSince!==null&&awakeSince>90?'fussy':'calm')
+    }, predictive.clusterCount>=3?'?? Hunger cluster':predictive.sleepDebt>2?'?? Sleep debt building':sinceLastFeed!==null&&sinceLastFeed>180?'?? Feed soon':awakeSince!==null&&awakeSince>90?'?? Fussy window':'✓ Doing well')
+  )), (tab === 'timeline' || tab === 'feed') && profiles.length > 0 && /*#__PURE__*/React.createElement("div", {
     className: "insights-strip"
   }, sinceLastFeed !== null && /*#__PURE__*/React.createElement("div", {
     className: "insight-card ".concat(sinceLastFeed > 180 ? 'alert' : 'ok')
@@ -4005,7 +4649,7 @@ function App() {
     className: "insight-value"
   }, sinceLastFeed, "m ago"), /*#__PURE__*/React.createElement("div", {
     className: "insight-sub"
-  }, sinceLastFeed > 180 ? 'Overdue!' : sinceLastFeed > 120 ? 'Feed soon!' : 'On track')), awakeSince !== null && /*#__PURE__*/React.createElement("div", {
+  }, sinceLastFeed > 180 ? 'Overdue!' : sinceLastFeed > 120 ? 'Feed soon!' : predictive&&predictive.nextFeedInMins!==null?'Next in ~'+predictive.nextFeedInMins+'m':'On track')), awakeSince !== null && /*#__PURE__*/React.createElement("div", {
     className: "insight-card ".concat(awakeSince > 90 ? 'alert' : 'ok')
   }, /*#__PURE__*/React.createElement("div", {
     className: "insight-label"
@@ -4045,7 +4689,7 @@ function App() {
     className: "insight-value"
   }, todayDiapers), /*#__PURE__*/React.createElement("div", {
     className: "insight-sub"
-  }, "today"))), tab === 'timeline' && aiInsight && /*#__PURE__*/React.createElement("div", {
+  }, "today")), predictive.nextFeedInMins!==null&&React.createElement('div',{className:'insight-card predict'},React.createElement('div',{className:'insight-label'},'NEXT FEED'),React.createElement('div',{className:'insight-value'},predictive.nextFeedInMins<=0?'Now!':predictive.nextFeedInMins+'m'),React.createElement('div',{className:'insight-sub'},predictive.nextFeedInMins<=0?'⚠️ Overdue':'predicted')), predictive.sleepDebt>1&&React.createElement('div',{className:'insight-card',style:{background:'#EDE7F6',border:'1px solid #7C4DFF'}},React.createElement('div',{className:'insight-label',style:{color:'rgba(74,39,160,.6)'}},'SLEEP DEBT'),React.createElement('div',{className:'insight-value',style:{color:'#4527A0'}},predictive.sleepDebt+'h'),React.createElement('div',{className:'insight-sub',style:{color:'rgba(74,39,160,.5)'}},'today')), predictive.clusterCount>=3&&React.createElement('div',{className:'insight-card',style:{background:'#FFF8E1',border:'1px solid #FF8F00'}},React.createElement('div',{className:'insight-label',style:{color:'rgba(230,81,0,.7)'}},'GROWTH SPURT?'),React.createElement('div',{className:'insight-value',style:{color:'#E65100',fontSize:12}},'Cluster'),React.createElement('div',{className:'insight-sub',style:{color:'rgba(230,81,0,.5)'}},predictive.clusterCount+' feeds/2hr'))), tab === 'timeline' && aiInsight && /*#__PURE__*/React.createElement("div", {
     className: "ai-insight",
     onClick: function onClick() {
       return setShowAI(true);
@@ -4065,7 +4709,7 @@ function App() {
     }
   }, "\u203A"))), /*#__PURE__*/React.createElement("div", {
     className: "tabs"
-  }, [['timeline', 'Timeline'], ['feed', 'Feeds'], ['analytics', 'Analytics'], ['partners', 'Partner'], ['notifications', 'Alerts'], ['profiles', 'Profiles'], ['feedback', 'Feedback']].map(function (_ref19) {
+  }, [['timeline', 'Timeline'], ['feed', 'Feeds'], ['analytics', 'Analytics'], ['milestones', '??'], ['growth', '?? Health'], ['routine', '?? Routine'], ['partners', 'Partner'], ['notifications', 'Alerts'], ['profiles', 'Profiles'], ['feedback', 'Feedback']].map(function (_ref19) {
     var _ref20 = _slicedToArray(_ref19, 2),
       id = _ref20[0],
       label = _ref20[1];
@@ -4110,9 +4754,12 @@ function App() {
     className: "empty"
   }, /*#__PURE__*/React.createElement("div", {
     className: "empty-icon"
-  }, "\uD83C\uDF19"), /*#__PURE__*/React.createElement("div", {
-    className: "empty-text"
-  }, "No logs yet \u2014 tap + Log to begin")), groupByDay(logs).map(function (_ref21) {
+  }, "\uD83C\uDF19"), React.createElement('div',{className:'smart-empty'},
+    React.createElement('div',{className:'smart-empty-icon'},'??'),
+    React.createElement('div',{className:'smart-empty-title'},'Start tracking '+(profile?profile.name:'your baby')),
+    React.createElement('div',{className:'smart-empty-sub'},'Log your first feed, sleep, or diaper using the buttons above. Predictions and patterns appear after 3 days of logging.'),
+    React.createElement('div',{className:'smart-empty-hint'},'?? Quick tip: tap ?? Start Feed or ?? Sleep above for one-tap logging')
+  )), groupByDay(logs).map(function (_ref21) {
     var _ref22 = _slicedToArray(_ref21, 2),
       day = _ref22[0],
       items = _ref22[1];
@@ -4404,7 +5051,7 @@ function App() {
     onFeedback: function onFeedback() {
       return setTab('feedback');
     }
-  }), (tab === 'timeline' || tab === 'feed') && profiles.length > 0 && /*#__PURE__*/React.createElement("button", {
+  }), tab === 'milestones' && React.createElement(MilestonesTab,{pid:pid,profile:profile}), tab === 'growth' && React.createElement(GrowthTab,{pid:pid,profile:profile}), tab === 'routine' && React.createElement(RoutineTab,null), (tab === 'timeline' || tab === 'feed') && profiles.length > 0 && /*#__PURE__*/React.createElement("button", {
     className: "fab",
     onClick: function onClick() {
       setShowSheet(true);
