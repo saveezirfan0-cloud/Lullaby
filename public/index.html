@@ -3953,11 +3953,29 @@ function App() {
       return Promise.all([
         sb.from('profiles').select('*').order('created_at'),
         userEmail
-          ? sb.from('profile_partners').select('profile_id').or(partnerFilter)
+          ? sb.from('profile_partners').select('profile_id,id,partner_user_id').or(partnerFilter)
           : Promise.resolve({ data: [] })
       ]).then(function(results) {
         var ownProfiles    = results[0].data || [];
         var partnerRecords = results[1].data || [];
+
+        // ── Auto-link: stamp partner_user_id on any record matched only by
+        //    email (partner_user_id was NULL). This makes the uid-based RLS
+        //    policy work from this login onward. ──────────────────────────
+        if (userId2 && partnerRecords.length) {
+          var needsLink = partnerRecords.filter(function(r) {
+            return !r.partner_user_id;
+          });
+          if (needsLink.length) {
+            var ids = needsLink.map(function(r) { return r.id; });
+            sb.from('profile_partners')
+              .update({ partner_user_id: userId2, accepted: true })
+              .in('id', ids)
+              .then(function() {})
+              .catch(function() {});
+          }
+        }
+
         if (!partnerRecords.length) return { all: ownProfiles };
         var sharedIds = partnerRecords.map(function(r) { return r.profile_id; });
         // Deduplicate — remove IDs already in ownProfiles
