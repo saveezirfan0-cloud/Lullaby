@@ -3982,9 +3982,13 @@ function App() {
   }
   var loadingRef = useRef(false);
   var currentPidRef = useRef(null);
+  var lastUserIdRef = useRef(null);
   useEffect(function () {
     if (!pid || !userId) return;
-    if (loadingRef.current && currentPidRef.current === pid) return;
+    // Always re-fetch on fresh login even if pid hasn't changed
+    var freshLogin = lastUserIdRef.current !== userId;
+    lastUserIdRef.current = userId;
+    if (!freshLogin && loadingRef.current && currentPidRef.current === pid) return;
     currentPidRef.current = pid;
     loadingRef.current = true;
     lsSet('lul_pid', pid);
