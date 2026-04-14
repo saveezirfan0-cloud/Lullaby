@@ -816,7 +816,8 @@ function Toggle(_ref) {
 }
 
 // ── Auth ─────────────────────────────────────────────────────────
-function AuthScreen() {
+function AuthScreen(_ref_auth) {
+  var onGuest = _ref_auth && _ref_auth.onGuest ? _ref_auth.onGuest : null;
   var _useState3 = useState('login'),
     _useState4 = _slicedToArray(_useState3, 2),
     mode = _useState4[0],
@@ -1005,7 +1006,70 @@ function AuthScreen() {
         type: ''
       });
     }
-  }, "Log in")))));
+  }, "Log in"))), onGuest && /*#__PURE__*/React.createElement(React.Fragment, null,
+    /*#__PURE__*/React.createElement("div", {style:{display:'flex',alignItems:'center',gap:10,margin:'14px 0 0',color:'var(--subtle)',fontSize:12}},
+      /*#__PURE__*/React.createElement("div",{style:{flex:1,height:1,background:'var(--border)'}}),
+      "or",
+      /*#__PURE__*/React.createElement("div",{style:{flex:1,height:1,background:'var(--border)'}})
+    ),
+    /*#__PURE__*/React.createElement("button", {
+      className: "submit-btn secondary",
+      style:{marginTop:10},
+      onClick: onGuest
+    }, "Browse as guest — no account needed")
+  )));
+}
+
+// ── Tutorial Overlay ───────────────────────────────────────────────
+var TUTORIAL_STEPS = [
+  {icon:'🍼',title:'Log anything in seconds',desc:'Tap the + Log button to record feeds, sleeps, diapers, pumps, and notes. Every entry is timestamped automatically.'},
+  {icon:'⏱️',title:'Live timers',desc:'Starting a feed or sleep? Tap "Start timer" and Lullaby tracks it live. Tap Stop when done — duration is saved automatically.'},
+  {icon:'📊',title:'Reports & insights',desc:'Tap Reports in the bottom bar to see charts of the past 7 days: sleep hours, feeds, and diapers at a glance.'},
+  {icon:'👥',title:'Share with your partner',desc:'Go to More → Partner to get your share code. Your partner enters it to see and log in real time — no separate setup needed.'},
+  {icon:'🌟',title:'Milestones & health',desc:'Track first smile, first steps, vaccinations, and weight under More → Milestones and Health. Everything in one place.'},
+];
+function TutorialOverlay(_ref_tut) {
+  var onDone = _ref_tut.onDone;
+  var R = React;
+  var _st = R.useState(0), _st2 = _slicedToArray(_st, 2), step = _st2[0], setStep = _st2[1];
+  var current = TUTORIAL_STEPS[step];
+  var isLast = step === TUTORIAL_STEPS.length - 1;
+  return R.createElement('div', {
+    style:{position:'fixed',inset:0,background:'rgba(44,26,14,0.65)',zIndex:300,display:'flex',alignItems:'flex-end',justifyContent:'center'}
+  },
+    R.createElement('div', {
+      style:{background:'var(--card)',borderRadius:'24px 24px 0 0',padding:'20px 24px calc(44px + env(safe-area-inset-bottom))',width:'100%',maxWidth:440,animation:'slideUp .22s ease'}
+    },
+      R.createElement('div',{style:{width:40,height:4,background:'var(--border)',borderRadius:100,margin:'0 auto 20px'}}),
+      R.createElement('div',{style:{textAlign:'center',marginBottom:20}},
+        R.createElement('div',{style:{fontSize:48,marginBottom:12,lineHeight:1}},current.icon),
+        R.createElement('div',{style:{fontFamily:"'DM Serif Display',serif",fontSize:20,color:'var(--ink)',marginBottom:10}},current.title),
+        R.createElement('div',{style:{fontSize:14,color:'var(--muted)',lineHeight:1.65}},current.desc)
+      ),
+      R.createElement('div',{style:{display:'flex',justifyContent:'center',gap:6,marginBottom:20}},
+        TUTORIAL_STEPS.map(function(_,i){
+          return R.createElement('div',{key:i,style:{
+            width: step===i ? 20 : 8,
+            height:8,borderRadius:100,
+            background:step===i?'var(--accent)':'var(--border)',
+            transition:'all .2s'
+          }});
+        })
+      ),
+      R.createElement('div',{style:{display:'flex',gap:10}},
+        R.createElement('button',{
+          className:'submit-btn secondary',
+          style:{flex:1,marginTop:0},
+          onClick:onDone
+        },'Skip'),
+        R.createElement('button',{
+          className:'submit-btn',
+          style:{flex:2,marginTop:0},
+          onClick:function(){isLast ? onDone() : setStep(step+1);}
+        }, isLast ? 'Get started' : 'Next')
+      )
+    )
+  );
 }
 
 // ── Log Forms ─────────────────────────────────────────────────────
@@ -3031,6 +3095,7 @@ function SettingsPage(_ref15) {
     apiKey = _ref15.apiKey,
     setApiKey = _ref15.setApiKey,
     onSignOut = _ref15.onSignOut,
+    onTutorial = _ref15.onTutorial,
     onFeedback = _ref15.onFeedback;
   var _useState125 = useState(apiKey || ''),
     _useState126 = _slicedToArray(_useState125, 2),
@@ -3159,6 +3224,18 @@ function SettingsPage(_ref15) {
       fontWeight: 500
     }
   }, "\u2713 AI advisor active \u2014 tap \uD83D\uDCA1 to chat"))), /*#__PURE__*/React.createElement("div", {
+    className: "settings-section"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "settings-section-title"
+  }, "Help"), /*#__PURE__*/React.createElement("div", {
+    className: "settings-row",
+    style: { cursor: 'pointer' },
+    onClick: onTutorial
+  }, /*#__PURE__*/React.createElement("div", null,
+    /*#__PURE__*/React.createElement("div", { className: "settings-row-label" }, "App tutorial"),
+    /*#__PURE__*/React.createElement("div", { className: "settings-row-sub" }, "Replay the getting started guide")
+  ), /*#__PURE__*/React.createElement("div", { style: { color: 'var(--muted)', fontSize: 18 } }, "\u203A"))),
+  /*#__PURE__*/React.createElement("div", {
     className: "settings-section"
   }, /*#__PURE__*/React.createElement("div", {
     className: "settings-section-title"
@@ -3773,6 +3850,9 @@ function App() {
     _useState130 = _slicedToArray(_useState129, 2),
     session = _useState130[0],
     setSession = _useState130[1];
+  var _gm = useState(lsGet('lul_guest_mode', false)), _gm2 = _slicedToArray(_gm, 2), guestMode = _gm2[0], setGuestMode = _gm2[1];
+  var _tut = useState(function(){ return !lsGet('lul_tut_done', false); }), _tut2 = _slicedToArray(_tut, 2), showTutorial = _tut2[0], setShowTutorial = _tut2[1];
+  function dismissTutorial(){ lsSet('lul_tut_done', true); setShowTutorial(false); }
   var _useState131 = useState(false),
     _useState132 = _slicedToArray(_useState131, 2),
     authReady = _useState132[0],
@@ -3891,8 +3971,8 @@ function App() {
     return p.id + p.gender;
   }).join(',')]);
   useEffect(function () {
-    lsSet('lul_sleep', activeSleep);
-  }, [activeSleep]);
+    if (guestMode && !session) { loadProfiles(); }
+  }, [guestMode]);
   useEffect(function () {
     lsSet('lul_feed', activeFeed);
   }, [activeFeed]);
@@ -3944,6 +4024,20 @@ function App() {
   } // Load logs — with lock to prevent double firing
   function _loadProfiles() {
     _loadProfiles = function() {
+      // ── Guest mode: use localStorage only ────────────────────────
+      if (guestMode) {
+        var gProfiles = lsGet('lul_guest_profiles', []);
+        if (!gProfiles.length) {
+          var gp = {id:'guest-baby',user_id:'guest',name:'My Baby',color:'rose',gender:'neutral',dob:'',share_code:'GUEST'};
+          gProfiles = [gp];
+          lsSet('lul_guest_profiles', gProfiles);
+        }
+        setProfiles(gProfiles);
+        var gSaved = lsGet('lul_pid', null);
+        var gMatch = gProfiles.find(function(p){ return p.id === gSaved; });
+        setPid(gMatch ? gMatch.id : gProfiles[0].id);
+        return Promise.resolve();
+      }
       var userEmail = session && session.user ? session.user.email : '';
       var userId2   = session && session.user ? session.user.id   : '';
       // Build partner filter: match by user_id (if set) or by email
@@ -4002,10 +4096,9 @@ function App() {
   var currentPidRef = useRef(null);
   var lastUserIdRef = useRef(null);
   useEffect(function () {
-    if (!pid || !userId) return;
-    // Always re-fetch on fresh login even if pid hasn't changed
-    var freshLogin = lastUserIdRef.current !== userId;
-    lastUserIdRef.current = userId;
+    if (!pid || (!userId && !guestMode)) return;
+    var freshLogin = lastUserIdRef.current !== (userId || 'guest');
+    lastUserIdRef.current = userId || 'guest';
     if (!freshLogin && loadingRef.current && currentPidRef.current === pid) return;
     currentPidRef.current = pid;
     loadingRef.current = true;
@@ -4013,7 +4106,7 @@ function App() {
     loadLogs(pid).finally(function () {
       loadingRef.current = false;
     });
-  }, [pid, userId]);
+  }, [pid, userId, guestMode]);
   function loadLogs(_x3) {
     return _loadLogs.apply(this, arguments);
   } // AI insight (debounced, on log count change)
@@ -4023,25 +4116,29 @@ function App() {
       return _regenerator().w(function (_context12) {
         while (1) switch (_context12.n) {
           case 0:
+            if (!guestMode) { _context12.n = 1; break; }
+            setLogs(lsGet('lul_guest_logs_' + profileId, []));
+            return _context12.a(2);
+          case 1:
             console.log('Loading logs for', profileId);
-            _context12.n = 1;
+            _context12.n = 2;
             return sb.from('logs').select('*').eq('profile_id', profileId).order('start_time', {
               ascending: false
             }).limit(500);
-          case 1:
+          case 2:
             _yield$sb$from$select6 = _context12.v;
             data = _yield$sb$from$select6.data;
             error = _yield$sb$from$select6.error;
             if (!error) {
-              _context12.n = 2;
+              _context12.n = 3;
               break;
             }
             console.error('logs error', error);
             return _context12.a(2);
-          case 2:
+          case 3:
             console.log('Loaded', data === null || data === void 0 ? void 0 : data.length, 'logs');
             setLogs(data || []);
-          case 3:
+          case 4:
             return _context12.a(2);
         }
       }, _callee12);
@@ -4176,6 +4273,17 @@ function App() {
               notes: data.notes || null,
               is_partial: data.is_partial || false
             };
+            if (guestMode) {
+              row.id = 'g' + Date.now() + Math.random().toString(36).slice(2,6);
+              var gAllLogs = lsGet('lul_guest_logs_' + pid, []);
+              gAllLogs.unshift(row);
+              lsSet('lul_guest_logs_' + pid, gAllLogs);
+              setLogs(function(prev){ return [row].concat(prev).sort(function(a,b){return b.start_time-a.start_time;}); });
+              setSaving(false);
+              showToast((ENTRY_META[data.type]&&ENTRY_META[data.type].icon||'') + ' Saved!');
+              closeSheet();
+              return _context13.a(2);
+            }
             _context13.n = 1;
             return sb.from('logs').insert(row).select().single();
           case 1:
@@ -4214,19 +4322,29 @@ function App() {
       return _regenerator().w(function (_context14) {
         while (1) switch (_context14.n) {
           case 0:
-            _context14.n = 1;
-            return sb.from('logs').update(updates).eq('id', id).select().single();
+            if (!guestMode) { _context14.n = 1; break; }
+            setLogs(function(prev){
+              var updated2 = prev.map(function(l){ return l.id===id ? Object.assign({},l,updates) : l; });
+              lsSet('lul_guest_logs_'+pid, updated2);
+              return updated2;
+            });
+            setEditingLog(null);
+            showToast('✏️ Updated');
+            return _context14.a(2);
           case 1:
+            _context14.n = 2;
+            return sb.from('logs').update(updates).eq('id', id).select().single();
+          case 2:
             _yield$sb$from$update = _context14.v;
             updated = _yield$sb$from$update.data;
             error = _yield$sb$from$update.error;
             if (!error) {
-              _context14.n = 2;
+              _context14.n = 3;
               break;
             }
             showToast('❌ Update failed');
             return _context14.a(2);
-          case 2:
+          case 3:
             setLogs(function (prev) {
               return prev.map(function (l) {
                 return l.id === id ? updated : l;
@@ -4234,7 +4352,7 @@ function App() {
             });
             setEditingLog(null);
             showToast('✏️ Updated');
-          case 3:
+          case 4:
             return _context14.a(2);
         }
       }, _callee14);
@@ -4250,18 +4368,28 @@ function App() {
       return _regenerator().w(function (_context15) {
         while (1) switch (_context15.n) {
           case 0:
-            _context15.n = 1;
-            return sb.from('logs').delete().eq('id', id);
+            if (!guestMode) { _context15.n = 1; break; }
+            setLogs(function(prev){
+              var remaining = prev.filter(function(l){ return l.id!==id; });
+              lsSet('lul_guest_logs_'+pid, remaining);
+              return remaining;
+            });
+            setEditingLog(null);
+            showToast('🗑️ Deleted');
+            return _context15.a(2);
           case 1:
+            _context15.n = 2;
+            return sb.from('logs').delete().eq('id', id);
+          case 2:
             _yield$sb$from$delete = _context15.v;
             error = _yield$sb$from$delete.error;
             if (!error) {
-              _context15.n = 2;
+              _context15.n = 3;
               break;
             }
             showToast('❌ Delete failed');
             return _context15.a(2);
-          case 2:
+          case 3:
             setLogs(function (prev) {
               return prev.filter(function (l) {
                 return l.id !== id;
@@ -4269,7 +4397,7 @@ function App() {
             });
             setEditingLog(null);
             showToast('🗑️ Deleted');
-          case 3:
+          case 4:
             return _context15.a(2);
         }
       }, _callee15);
@@ -4291,8 +4419,28 @@ function App() {
             }
             return _context16.a(2);
           case 1:
+            if (!guestMode) { _context16.n = 2; break; }
+            var gNewP = {
+              id: 'guest-' + Date.now(),
+              user_id: 'guest',
+              name: newP.name.trim(),
+              dob: newP.dob || null,
+              color: newP.color,
+              gender: newP.gender,
+              share_code: 'GUEST'
+            };
+            var gAllP = lsGet('lul_guest_profiles', []).concat([gNewP]);
+            lsSet('lul_guest_profiles', gAllP);
+            setProfiles(gAllP);
+            setPid(gNewP.id);
+            setShowNewP(false);
+            setNewP({name:'',dob:'',color:'rose',gender:'neutral'});
+            setTab('timeline');
+            showToast('🎉 ' + gNewP.name + ' added!');
+            return _context16.a(2);
+          case 2:
             code = Math.random().toString(36).slice(2, 6).toUpperCase() + Math.random().toString(36).slice(2, 6).toUpperCase();
-            _context16.n = 2;
+            _context16.n = 3;
             return sb.from('profiles').insert({
               user_id: userId,
               name: newP.name.trim(),
@@ -4301,17 +4449,17 @@ function App() {
               gender: newP.gender,
               share_code: code
             }).select().single();
-          case 2:
+          case 3:
             _yield$sb$from$insert4 = _context16.v;
             data = _yield$sb$from$insert4.data;
             error = _yield$sb$from$insert4.error;
             if (!error) {
-              _context16.n = 3;
+              _context16.n = 4;
               break;
             }
             showToast('❌ Failed');
             return _context16.a(2);
-          case 3:
+          case 4:
             setProfiles(function (prev) {
               return [].concat(_toConsumableArray(prev), [data]);
             });
@@ -4325,7 +4473,7 @@ function App() {
             });
             setTab('timeline');
             showToast("\uD83C\uDF89 ".concat(data.name, " added!"));
-          case 4:
+          case 5:
             return _context16.a(2);
         }
       }, _callee16);
@@ -4341,14 +4489,22 @@ function App() {
       return _regenerator().w(function (_context17) {
         while (1) switch (_context17.n) {
           case 0:
-            _context17.n = 1;
-            return sb.from('profiles').update(updates).eq('id', id).select().single();
+            if (!guestMode) { _context17.n = 1; break; }
+            var gAllP2 = lsGet('lul_guest_profiles',[]).map(function(p){ return p.id===id ? Object.assign({},p,updates) : p; });
+            lsSet('lul_guest_profiles', gAllP2);
+            setProfiles(gAllP2);
+            setEditingProfile(null);
+            showToast('✏️ Updated');
+            return _context17.a(2);
           case 1:
+            _context17.n = 2;
+            return sb.from('profiles').update(updates).eq('id', id).select().single();
+          case 2:
             _yield$sb$from$update2 = _context17.v;
             updated = _yield$sb$from$update2.data;
             error = _yield$sb$from$update2.error;
             if (!error) {
-              _context17.n = 2;
+              _context17.n = 3;
               break;
             }
             showToast('❌ Failed');
@@ -4455,6 +4611,11 @@ function App() {
     });
     setActiveFeed(null);
   }
+  function handleGuest() {
+    lsSet('lul_guest_mode', true);
+    setGuestMode(true);
+    loadProfiles();
+  }
   function signOut() {
     return _signOut.apply(this, arguments);
   } // Derived — stable with useMemo
@@ -4463,13 +4624,21 @@ function App() {
       return _regenerator().w(function (_context19) {
         while (1) switch (_context19.n) {
           case 0:
-            _context19.n = 1;
-            return sb.auth.signOut();
-          case 1:
+            if (!guestMode) { _context19.n = 1; break; }
+            lsSet('lul_guest_mode', false);
+            setGuestMode(false);
             setProfiles([]);
             setLogs([]);
             setPid(null);
+            return _context19.a(2);
+          case 1:
+            _context19.n = 2;
+            return sb.auth.signOut();
           case 2:
+            setProfiles([]);
+            setLogs([]);
+            setPid(null);
+          case 3:
             return _context19.a(2);
         }
       }, _callee19);
@@ -4621,10 +4790,29 @@ function App() {
       animation: 'spin .6s linear infinite'
     }
   }));
-  if (!session) return /*#__PURE__*/React.createElement(AuthScreen, null);
+  if (!session && !guestMode) return /*#__PURE__*/React.createElement(AuthScreen, { onGuest: handleGuest });
   return /*#__PURE__*/React.createElement("div", {
     className: "app"
-  }, toast && /*#__PURE__*/React.createElement("div", {
+  }, showTutorial && React.createElement(TutorialOverlay, { onDone: dismissTutorial }),
+  guestMode && React.createElement('div', {
+    style:{
+      background:'var(--ai)', borderBottom:'1px solid var(--ai-deep)',
+      padding:'9px 20px', display:'flex', alignItems:'center',
+      justifyContent:'space-between', fontSize:12, color:'var(--ai-text)',
+      position:'sticky', top:0, zIndex:50
+    }
+  },
+    React.createElement('span',null,'👋 Guest mode — data saved on this device only'),
+    React.createElement('button',{
+      onClick: signOut,
+      style:{
+        background:'var(--ink)',color:'var(--bg)',border:'none',
+        borderRadius:100,padding:'4px 12px',fontSize:11,
+        fontWeight:600,cursor:'pointer',fontFamily:'inherit'
+      }
+    },'Sign up free')
+  ),
+  toast && /*#__PURE__*/React.createElement("div", {
     className: "toast"
   }, toast), editingLog && /*#__PURE__*/React.createElement(EditLogSheet, {
     log: editingLog,
@@ -5135,6 +5323,7 @@ function App() {
     apiKey: apiKey,
     setApiKey: setApiKey,
     onSignOut: signOut,
+    onTutorial: function onTutorial() { setShowTutorial(true); },
     onFeedback: function onFeedback() {
       return setTab('feedback');
     }
