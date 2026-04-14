@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
+  <rect width="192" height="192" rx="40" fill="#FBF8F5"/>
+  <rect width="192" height="192" rx="40" fill="#2C1A0E" opacity="0.04"/>
+  <text x="96" y="120" font-size="100" text-anchor="middle" font-family="serif">🌙</text>
+  <text x="96" y="168" font-size="22" text-anchor="middle" font-family="Georgia,serif" fill="#C4705A" font-style="italic">lullaby</text>
+</svg>
