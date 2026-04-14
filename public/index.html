@@ -28,10 +28,15 @@ body{font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;-webkit
   --ai:#F5E4BC;--ai-deep:#C08030;--ai-text:#6A4010;
 }
 body.dark{
-  --bg:#1A1210;--bg2:#231815;--bg3:#2E201C;
-  --card:#2A1E1A;--border:#3D2D28;
-  --ink:#F5EDE8;--muted:#9A8070;--subtle:#6A5548;
-  --shadow:0 2px 12px rgba(0,0,0,0.3);--shadow-lg:0 8px 32px rgba(0,0,0,0.4);
+  --bg:#141010;--bg2:#1E1614;--bg3:#261D1A;
+  --card:#1E1614;--border:#3A2820;
+  --ink:#F0E8E0;--muted:#9A8070;--subtle:#5A4538;
+  --shadow:0 2px 12px rgba(0,0,0,0.4);--shadow-lg:0 8px 32px rgba(0,0,0,0.55);
+  --danger:#F07060;--danger-bg:#3A1510;
+  --success:#50B878;--success-bg:#0E2E1A;
+  --accent2:#50B878;--accent2-bg:#0E2E1A;--accent2-text:#90DCA8;
+  --ai:#2E2210;--ai-deep:#C08030;--ai-text:#D4A050;
+  --lav:#1E1A2E;--lav-deep:#9080D0;--lav-text:#B0A0E8;
 }
 body.theme-girl{--accent:#C4705A;--accent-bg:#F2D4CC;--accent-text:#7A3020;--lav:#F5C8E0;--lav-deep:#C050A0;--lav-text:#6A1848;}
 body.dark.theme-girl{--accent:#E89080;--accent-bg:#4A2820;--accent-text:#F5C0B0;--lav:#3A1828;--lav-deep:#D070A0;--lav-text:#F0B0D0;}
@@ -156,12 +161,12 @@ body{background:var(--bg);color:var(--ink)}
 .stat-label{font-size:11px;color:var(--muted);font-weight:500;margin-top:2px}
 .bar-chart{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;box-shadow:var(--shadow);margin-bottom:9px}
 .bar-chart-title{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:12px}
-.bars{display:flex;align-items:flex-end;gap:5px;height:80px}
-.bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;height:100%}
+.bars{display:flex;align-items:flex-end;gap:5px;height:96px;padding-bottom:22px;position:relative}
+.bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:0;height:100%;position:relative}
 .bar-col{flex:1;display:flex;align-items:flex-end;width:100%}
 .bar{width:100%;border-radius:5px 5px 0 0;transition:height .4s ease}
-.bar-day{font-size:9px;color:var(--muted);font-weight:500;margin-top:4px}
-.bar-val{font-size:9px;color:var(--muted)}
+.bar-day{font-size:9px;color:var(--muted);font-weight:500;position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);white-space:nowrap}
+.bar-val{font-size:9px;color:var(--muted);line-height:1;margin-bottom:2px}
 .no-data-msg{text-align:center;color:var(--muted);font-size:12px;padding:20px;font-style:italic}
 
 /* Profiles */
@@ -702,12 +707,16 @@ var getBabyAge = function getBabyAge(dob) {
 };
 var groupByDay = function groupByDay(items) {
   var g = {};
+  var gTs = {};
   items.forEach(function (l) {
     var k = dayLabel(l.start_time);
-    if (!g[k]) g[k] = [];
+    if (!g[k]) { g[k] = []; gTs[k] = 0; }
     g[k].push(l);
+    if (l.start_time > gTs[k]) gTs[k] = l.start_time;
   });
-  return Object.entries(g);
+  return Object.keys(g)
+    .sort(function(a, b) { return gTs[b] - gTs[a]; })
+    .map(function(k) { return [k, g[k]]; });
 };
 var lsGet = function lsGet(k, fb) {
   try {
@@ -1898,7 +1907,16 @@ function EditProfileSheet(_ref8) {
     _useState84 = _slicedToArray(_useState83, 2),
     name = _useState84[0],
     setName = _useState84[1];
-  var _useState85 = useState(profile.dob || ''),
+  // Normalize dob to YYYY-MM-DD regardless of storage format
+  function normalizeDob(raw) {
+    if (!raw) return '';
+    if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) return raw;
+    var d = new Date(raw);
+    if (isNaN(d.getTime())) return '';
+    var pad = function(n){ return String(n).padStart(2,'0'); };
+    return d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate());
+  }
+  var _useState85 = useState(normalizeDob(profile.dob)),
     _useState86 = _slicedToArray(_useState85, 2),
     dob = _useState86[0],
     setDob = _useState86[1];
@@ -3957,18 +3975,27 @@ function App() {
   var sleepSecs = useTimer(activeSleep === null || activeSleep === void 0 ? void 0 : activeSleep.start);
   var feedSecs = useTimer(activeFeed === null || activeFeed === void 0 ? void 0 : activeFeed.start);
 
-  // Theme — stable ref approach to prevent re-render loops
+  // Theme — apply profile color + dark mode + gender class
   useEffect(function () {
     var b = document.body;
     b.classList.toggle('dark', darkMode);
     b.classList.remove('theme-girl', 'theme-boy', 'theme-neutral');
-    var p = profiles.find(function (x) {
-      return x.id === pid;
-    });
-    var g = (p === null || p === void 0 ? void 0 : p.gender) || 'neutral';
+    var p = profiles.find(function (x) { return x.id === pid; });
+    var g = (p && p.gender) || 'neutral';
     b.classList.add(g === 'girl' ? 'theme-girl' : g === 'boy' ? 'theme-boy' : 'theme-neutral');
+    // Apply profile color directly as CSS custom properties
+    var c = p && p.color ? COLORS.find(function(x){ return x.id === p.color; }) : null;
+    if (c) {
+      b.style.setProperty('--accent', c.dark);
+      b.style.setProperty('--accent-bg', c.bg);
+      b.style.setProperty('--accent-text', c.text);
+    } else {
+      b.style.removeProperty('--accent');
+      b.style.removeProperty('--accent-bg');
+      b.style.removeProperty('--accent-text');
+    }
   }, [darkMode, pid, profiles.map(function (p) {
-    return p.id + p.gender;
+    return p.id + p.gender + (p.color||'');
   }).join(',')]);
   useEffect(function () {
     if (guestMode && !session) { loadProfiles(); }
@@ -4008,6 +4035,13 @@ function App() {
       setPid(null);
       return;
     }
+    // Fetch admin-managed API key from app_config (if available)
+    sb.from('app_config').select('value').eq('key', 'anthropic_key').maybeSingle()
+      .then(function(res) {
+        if (res.data && res.data.value) {
+          setApiKey(res.data.value);
+        }
+      }).catch(function(){});
     loadProfiles();
     // Upsert user profile
     sb.from('user_profiles').upsert({
