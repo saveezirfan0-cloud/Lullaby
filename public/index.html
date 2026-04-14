@@ -1081,6 +1081,74 @@ function TutorialOverlay(_ref_tut) {
   );
 }
 
+// ── Add-to-Home-Screen install popup ──────────────────────────────
+function A2HSPopup(_ref_a2hs) {
+  var onDismiss = _ref_a2hs.onDismiss;
+  var R = React;
+  var ua = navigator.userAgent;
+  var isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+  var isAndroid = /Android/.test(ua);
+  var isStandalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone;
+  if (isStandalone) { onDismiss(); return null; }
+
+  var steps = isIOS
+    ? [
+        {n:1, icon:'⬆️', text:'Tap the Share button at the bottom of Safari'},
+        {n:2, icon:'➕', text:'Scroll down and tap "Add to Home Screen"'},
+        {n:3, icon:'✅', text:'Tap "Add" — lullaby appears on your home screen!'},
+      ]
+    : [
+        {n:1, icon:'⋮',  text:'Tap the 3-dot menu in the top-right of Chrome'},
+        {n:2, icon:'➕', text:'Tap "Add to Home Screen"'},
+        {n:3, icon:'✅', text:'Tap "Add" — lullaby appears on your home screen!'},
+      ];
+
+  return R.createElement('div', {
+    style:{position:'fixed',inset:0,background:'rgba(44,26,14,0.6)',zIndex:310,display:'flex',alignItems:'flex-end',justifyContent:'center'}
+  },
+    R.createElement('div', {
+      style:{background:'var(--card)',borderRadius:'24px 24px 0 0',padding:'20px 24px calc(40px + env(safe-area-inset-bottom))',width:'100%',maxWidth:440,animation:'slideUp .22s ease'}
+    },
+      R.createElement('div',{style:{width:40,height:4,background:'var(--border)',borderRadius:100,margin:'0 auto 18px'}}),
+      R.createElement('div',{style:{display:'flex',alignItems:'center',gap:14,marginBottom:18}},
+        R.createElement('div',{style:{
+          width:52,height:52,borderRadius:14,flexShrink:0,
+          background:'var(--ink)',display:'flex',alignItems:'center',justifyContent:'center',
+          fontFamily:"'DM Serif Display',serif",fontSize:28,color:'var(--accent)',fontStyle:'italic'
+        }},'l'),
+        R.createElement('div',null,
+          R.createElement('div',{style:{fontFamily:"'DM Serif Display',serif",fontSize:19,color:'var(--ink)'}},'Install Lullaby'),
+          R.createElement('div',{style:{fontSize:12,color:'var(--muted)',marginTop:2}},
+            isIOS ? 'Add to your iPhone home screen for the best experience'
+                  : isAndroid ? 'Add to your Android home screen for the best experience'
+                  : 'Install as an app for the best experience'
+          )
+        )
+      ),
+      steps.map(function(s){
+        return R.createElement('div',{key:s.n,style:{display:'flex',alignItems:'center',gap:12,padding:'10px 0',borderBottom:'1px solid var(--border)'}},
+          R.createElement('div',{style:{
+            width:32,height:32,borderRadius:10,background:'var(--bg2)',
+            display:'flex',alignItems:'center',justifyContent:'center',
+            fontSize:16,flexShrink:0
+          }},s.icon),
+          R.createElement('div',{style:{fontSize:13,color:'var(--ink)',lineHeight:1.45}},s.text)
+        );
+      }),
+      R.createElement('div',{style:{display:'flex',gap:10,marginTop:18}},
+        R.createElement('button',{
+          className:'submit-btn secondary',style:{flex:1,marginTop:0},
+          onClick:onDismiss
+        },'Maybe later'),
+        R.createElement('button',{
+          className:'submit-btn',style:{flex:2,marginTop:0},
+          onClick:onDismiss
+        },'Got it!')
+      )
+    )
+  );
+}
+
 // ── Log Forms ─────────────────────────────────────────────────────
 function FeedForm(_ref2) {
   var onSave = _ref2.onSave,
@@ -3870,7 +3938,12 @@ function App() {
     setSession = _useState130[1];
   var _gm = useState(lsGet('lul_guest_mode', false)), _gm2 = _slicedToArray(_gm, 2), guestMode = _gm2[0], setGuestMode = _gm2[1];
   var _tut = useState(function(){ return !lsGet('lul_tut_done', false); }), _tut2 = _slicedToArray(_tut, 2), showTutorial = _tut2[0], setShowTutorial = _tut2[1];
+  var _a2hs = useState(function(){
+    var isStandalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone;
+    return !isStandalone && !lsGet('lul_a2hs_done', false);
+  }), _a2hs2 = _slicedToArray(_a2hs, 2), showA2HS = _a2hs2[0], setShowA2HS = _a2hs2[1];
   function dismissTutorial(){ lsSet('lul_tut_done', true); setShowTutorial(false); }
+  function dismissA2HS(){ lsSet('lul_a2hs_done', true); setShowA2HS(false); }
   var _useState131 = useState(false),
     _useState132 = _slicedToArray(_useState131, 2),
     authReady = _useState132[0],
@@ -4828,6 +4901,7 @@ function App() {
   return /*#__PURE__*/React.createElement("div", {
     className: "app"
   }, showTutorial && React.createElement(TutorialOverlay, { onDone: dismissTutorial }),
+  !showTutorial && showA2HS && React.createElement(A2HSPopup, { onDismiss: dismissA2HS }),
   guestMode && React.createElement('div', {
     style:{
       background:'var(--ai)', borderBottom:'1px solid var(--ai-deep)',
