@@ -4760,11 +4760,26 @@ function App() {
   var predictive = useMemo(function(){
     var rFeeds=logs.filter(function(l){return l.type==='feed'&&!l.is_partial;});
     var avgFeedMins=180;
-    if(rFeeds.length>=3){
+    // FIX: only consider feeds from the last 48 hours to avoid stale/old data
+    var cutoff48h = Date.now() - 172800000;
+    var recentFeeds = rFeeds.filter(function(l){ return l.start_time >= cutoff48h; });
+    if(recentFeeds.length>=3){
       var iv=[];
-      for(var i=0;i<Math.min(rFeeds.length-1,4);i++) iv.push((rFeeds[i].start_time-rFeeds[i+1].start_time)/60000);
-      avgFeedMins=Math.round(iv.reduce(function(a,b){return a+b;},0)/iv.length);
+      for(var i=0;i<Math.min(recentFeeds.length-1,6);i++){
+        var gap=(recentFeeds[i].start_time-recentFeeds[i+1].start_time)/60000;
+        // FIX: exclude overnight/anomalous gaps > 6 hours (360 min)
+        // so a long night sleep doesn't inflate the daytime prediction
+        if(gap>0 && gap<=360) iv.push(gap);
+      }
+      if(iv.length>=2){
+        // FIX: use median instead of mean so one outlier can't skew the result
+        var sorted=iv.slice().sort(function(a,b){return a-b;});
+        var mid=Math.floor(sorted.length/2);
+        avgFeedMins=Math.round(sorted.length%2!==0?sorted[mid]:(sorted[mid-1]+sorted[mid])/2);
+      }
     }
+    // Clamp to a sensible range for an infant (60–240 min)
+    avgFeedMins=Math.min(240,Math.max(60,avgFeedMins));
     var lastFeedTs=rFeeds[0]?rFeeds[0].start_time:null;
     var sinceLastFeedMins=lastFeedTs?Math.floor((Date.now()-lastFeedTs)/60000):null;
     var nextFeedInMins=lastFeedTs?Math.max(0,avgFeedMins-(sinceLastFeedMins||0)):null;
